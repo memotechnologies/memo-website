@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fafafa;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #fff 0%, #999 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: #666;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border: 1px solid #333;
+      border-radius: 9999px;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .cta:hover {
+      border-color: #666;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(100, 100, 255, 0.06) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 2rem;
+      font-size: 0.8rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="glow"></div>
+    <h1 class="logo">memo</h1>
+    <p class="tagline">Something new is coming.</p>
+    <a href="mailto:hello@memo.dev" class="cta">Get in touch</a>
+    <p class="footer">&copy; 2026 Memo</p>
+  </div>
+</body>
+</html>
