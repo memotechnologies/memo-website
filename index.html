@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memo</title>
+  <title>Memo — Sales assistants for every sales rep</title>
+  <meta name="description" content="Memo provides AI sales assistants for every sales rep. Get in touch to learn more.">
+  <meta name="theme-color" content="#e8dcc8">
+  <meta property="og:title" content="Memo">
+  <meta property="og:description" content="Sales assistants for every sales rep">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sentmemo.com">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Memo">
+  <meta name="twitter:description" content="Sales assistants for every sales rep">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23e8dcc8'/><text x='50' y='68' font-family='system-ui,sans-serif' font-size='60' font-weight='700' fill='%23222' text-anchor='middle'>M</text></svg>">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8BGXGH4BWP"></script>
@@ -48,7 +57,7 @@
 
     .tagline {
       font-size: 1.25rem;
-      color: #666;
+      color: #555;
       font-weight: 400;
       letter-spacing: 0.02em;
       margin-bottom: 2.5rem;
@@ -70,6 +79,12 @@
       border-color: #555;
       color: #222;
       background: rgba(0, 0, 0, 0.04);
+    }
+
+    @media (max-width: 600px) {
+      .logo { font-size: 3rem; }
+      .tagline { font-size: 1rem; }
+      .glow { width: 300px; height: 300px; }
     }
 
     .glow {
@@ -96,7 +111,7 @@
   <div class="hero">
     <div class="glow"></div>
     <h1 class="logo">Memo</h1>
-    <p1 class="tagline">Sales assistants for every sales rep</p1>
+    <p class="tagline">Sales assistants for every sales rep</p>
     <a href="mailto:henri@sentmemo.com" class="cta">Get in touch</a>
     <p class="footer">&copy; 2026 Memo Technologies Oy &middot; VAT FI36028195</p>
   </div>
