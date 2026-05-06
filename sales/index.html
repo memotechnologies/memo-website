@@ -1267,6 +1267,26 @@
       font-size: 0.86rem;
       color: var(--ink-mute);
     }
+    .tier .tier-tagline {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      max-width: 22rem;
+      margin-top: 0.2rem;
+    }
+    .tier ul li .feat-desc {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      color: var(--ink-mute);
+      margin-top: 0.15rem;
+      line-height: 1.45;
+    }
+    .tier ul li .feat-label {
+      color: var(--ink);
+      font-weight: 500;
+    }
     .tier ul {
       list-style: none;
       padding: 0;
@@ -2318,38 +2338,36 @@
           <div class="tier-eyebrow">Starter</div>
           <div class="price">€49</div>
           <div class="per">per seat / month</div>
+          <p class="tier-tagline">Your sales assistant. Hands off the admin so you can stay in the conversation.</p>
           <ul>
-            <li>Fireflies &amp; Gong integration</li>
-            <li>AI summaries, sales-specific</li>
-            <li>HubSpot or Pipedrive sync</li>
-            <li>Slack notifications</li>
-            <li>Email follow-up drafts</li>
-            <li>Calendar invites for next steps</li>
+            <li><span class="feat-label">Preps you before every call</span><span class="feat-desc">Briefs you in Slack with who they are, open deals, last conversation, suggested talking points.</span></li>
+            <li><span class="feat-label">Captures the meeting for you</span><span class="feat-desc">DM your notes in plain English, or let Fireflies, Gong, Granola, or your calendar feed straight in.</span></li>
+            <li><span class="feat-label">Updates the CRM in the background</span><span class="feat-desc">Contacts, companies, deals, notes, tasks in HubSpot or Pipedrive &mdash; done before you reach the next call.</span></li>
+            <li><span class="feat-label">You stay in the driver&rsquo;s seat</span><span class="feat-desc">Every change is a one-tap approval; the assistant proposes, you confirm.</span></li>
           </ul>
         </article>
         <article class="tier featured">
           <div class="tier-eyebrow">Team</div>
           <div class="price">€89</div>
           <div class="per">per seat / month</div>
+          <p class="tier-tagline">An assistant for every rep, plus an extra set of eyes on the pipeline.</p>
           <ul>
-            <li>Everything in Starter</li>
-            <li>Manager dashboard</li>
-            <li>MEDDIC / BANT auto-fill</li>
-            <li>Custom CRM field mapping</li>
-            <li>Working agreements per channel</li>
-            <li>Priority support</li>
+            <li><span class="feat-label">Everything in Starter</span></li>
+            <li><span class="feat-label">Moves deals forward when you&rsquo;re heads-down</span><span class="feat-desc">Surfaces stalled deals and untouched leads with a suggested next step, before the manager has to ask.</span></li>
+            <li><span class="feat-label">Holds the team to its playbook</span><span class="feat-desc">Working agreements (&ldquo;log external meetings within 24h&rdquo;) posted to a shared channel with compliance tracking.</span></li>
+            <li><span class="feat-label">Speaks your team&rsquo;s CRM dialect</span><span class="feat-desc">Custom field mapping and per-stage required fields, so every rep&rsquo;s data lands the same way.</span></li>
           </ul>
         </article>
         <article class="tier">
           <div class="tier-eyebrow">Enterprise</div>
           <div class="price" style="font-size: clamp(2rem, 3.4vw, 2.6rem);">Talk&nbsp;to&nbsp;us</div>
-          <div class="per">annual or per-seat</div>
+          <div class="per">Annual or per-seat.</div>
           <ul>
-            <li>Everything in Team</li>
-            <li>SSO &amp; admin controls</li>
-            <li>Custom integrations</li>
-            <li>Dedicated CSM</li>
-            <li>SLA guarantee</li>
+            <li><span class="feat-label">Everything in Team</span></li>
+            <li><span class="feat-label">SSO &amp; admin controls</span></li>
+            <li><span class="feat-label">Custom integrations</span></li>
+            <li><span class="feat-label">Dedicated CSM</span></li>
+            <li><span class="feat-label">SLA guarantee</span></li>
           </ul>
         </article>
       </div>
