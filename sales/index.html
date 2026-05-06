@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memo &middot; The agent that turns notes and meetings into action</title>
+  <meta name="description" content="Memo turns notes and meetings into clean CRM updates, drafted follow-ups, and the next steps that follow. Channel-agnostic, by design.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23e8dcc8'/><text x='50' y='68' font-family='ui-serif,Georgia' font-size='60' font-weight='600' fill='%23222' text-anchor='middle'>M</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper:        #f8f3e6;
+      --paper-card:   #efe6d1;
+      --paper-warm:   #e8dcc8;
+      --paper-deep:   #ddd0b8;
+      --ink:          #1a1612;
+      --ink-soft:     #463e33;
+      --ink-mute:     #847866;
+      --ink-faint:    #ad9f86;
+      --rule:         #d4c294;
+      --rule-soft:    #e2d4ad;
+      --accent:       #A0532F;
+      --accent-deep:  #7e3f23;
+      --accent-soft:  #c98a64;
+      --accent-glow:  rgba(160, 83, 47, 0.16);
+
+      --serif: 'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+      --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+      --gutter: 1.5rem;
+      --max:    74rem;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    @media (min-width: 60rem) { html { font-size: 18px; } }
+
+    body {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--paper);
+      font-feature-settings: "kern", "liga", "onum";
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    p { hanging-punctuation: first last; }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* ── Layout ───────────────────────────────────────────────── */
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+    @media (min-width: 50rem) {
+      .container { padding: 0 3rem; }
+    }
+    @media (min-width: 80rem) {
+      .container { padding: 0 4rem; }
+    }
+    .narrow { max-width: 60rem; margin: 0 auto; }
+
+    /* ── Typographic primitives ───────────────────────────────── */
+    .smallcaps {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .smallcaps--accent { color: var(--accent); }
+    .caption {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-mute);
+      font-weight: 400;
+    }
+
+    /* ── Buttons ──────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.6rem;
+      font-family: var(--sans);
+      font-size: 0.94rem;
+      font-weight: 600;
+      letter-spacing: 0.005em;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 80ms ease;
+      white-space: nowrap;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-deep); color: #fff; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--rule);
+    }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-sm  { padding: 0.45rem 0.95rem; font-size: 0.78rem; letter-spacing: 0.04em; }
+    .btn-md  { padding: 0.7rem  1.3rem; font-size: 0.88rem; }
+    .btn-lg  { padding: 1rem    2rem;   font-size: 1rem; }
+    .btn .arrow { transition: transform 180ms ease; }
+    .btn:hover .arrow { transform: translateX(3px); }
+
+    .link {
+      color: var(--accent);
+      background-image: linear-gradient(currentColor, currentColor);
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      background-size: 100% 1px;
+      padding-bottom: 1px;
+      transition: background-size 220ms ease, color 220ms ease;
+    }
+    .link:hover { color: var(--accent-deep); background-size: 100% 2px; }
+
+    /* ── Masthead ─────────────────────────────────────────────── */
+    .masthead {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+    .masthead-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .wordmark {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.5rem;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.05em;
+    }
+    .wordmark .bar {
+      display: inline-block;
+      width: 0.55em;
+      height: 0.12em;
+      background: var(--accent);
+      margin-left: 0.08em;
+      transform: translateY(-0.02em);
+    }
+    .masthead-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+    .masthead-meta a.nav {
+      color: var(--ink-soft);
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .masthead-meta a.nav:hover { color: var(--accent); }
+    @media (max-width: 36rem) {
+      .masthead-meta a.nav { display: none; }
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding-top: clamp(2rem, 4vw, 3.5rem);
+      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero-glow {
+      position: absolute;
+      top: clamp(8rem, 16vw, 14rem);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(80rem, 110vw);
+      height: 36rem;
+      background:
+        radial-gradient(circle at 50% 40%, var(--accent-glow) 0%, rgba(232, 220, 200, 0.45) 22%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-orb {
+      position: absolute;
+      top: clamp(6rem, 14vw, 11rem);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(46rem, 90vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(160, 83, 47, 0.08);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-orb::before, .hero-orb::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      border: 1px solid rgba(160, 83, 47, 0.06);
+    }
+    .hero-orb::after { inset: 18%; border-color: rgba(160, 83, 47, 0.045); }
+
+    .hero-stage {
+      position: relative;
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 0 0.5rem;
+      text-align: center;
+      z-index: 2;
+    }
+    .hero .eyebrow {
+      margin-bottom: 1.6rem;
+      display: inline-block;
+    }
+    .hed {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.6rem, 7.5vw, 5.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin: 0 auto 1.6rem;
+      max-width: 18ch;
+    }
+    .hed em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .hero .deck {
+      max-width: 36rem;
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin: 0 auto 2.4rem;
+    }
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-trust {
+      margin-top: 1.5rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--ink-mute);
+      letter-spacing: 0.005em;
+    }
+    .hero-trust em { color: var(--ink-soft); font-style: italic; }
+
+    /* ── Floating product cards ───────────────────────────────── */
+    .float-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow:
+        0 1px 0 rgba(0,0,0,0.02),
+        0 14px 30px -16px rgba(60, 40, 20, 0.18),
+        0 6px 14px -8px rgba(60, 40, 20, 0.08);
+      padding: 0.85rem 1rem 0.95rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      line-height: 1.42;
+      color: var(--ink);
+      border: 1px solid rgba(0,0,0,0.04);
+      text-align: left;
+      z-index: 1;
+    }
+    .float-card .label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--ink);
+    }
+    .float-card .label .pip {
+      width: 0.95rem;
+      height: 0.95rem;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.6rem;
+      flex-shrink: 0;
+      color: #fff;
+      background: var(--accent);
+    }
+    .float-card .label .pip.green { background: #007a5a; }
+    .float-card .label .pip.blue  { background: #1264a3; }
+    .float-card .meta {
+      color: var(--ink-mute);
+      font-size: 0.74rem;
+    }
+    .float-card .meta strong { color: var(--ink-soft); font-weight: 600; }
+    .float-card .progress {
+      margin-top: 0.55rem;
+      height: 4px;
+      background: rgba(160, 83, 47, 0.14);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .float-card .progress span {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      width: 70%;
+      border-radius: 9999px;
+    }
+
+    .float-card.transcript {
+      top: 1rem;
+      left: -0.5rem;
+      width: 16rem;
+      transform: rotate(-1.6deg);
+    }
+    .float-card.proposal {
+      top: -0.5rem;
+      right: -1rem;
+      width: 18rem;
+      transform: rotate(1.4deg);
+    }
+    .float-card.email {
+      bottom: 5rem;
+      left: -1.5rem;
+      width: 16.5rem;
+      transform: rotate(0.8deg);
+    }
+    .float-card.calendar {
+      bottom: 7rem;
+      right: 0;
+      width: 14.5rem;
+      transform: rotate(-1.2deg);
+    }
+
+    @media (max-width: 64rem) {
+      .float-card { display: none; }
+    }
+
+    /* ── Trusted-by marquee ───────────────────────────────────── */
+    .trust-bar {
+      margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+      max-width: 72rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .trust-label {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 1.4rem;
+    }
+    .trust-track {
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+      display: flex;
+    }
+    .trust-row {
+      display: flex;
+      gap: 3.25rem;
+      white-space: nowrap;
+      animation: trust-scroll 36s linear infinite;
+      padding-right: 3.25rem;
+      flex-shrink: 0;
+      align-items: center;
+    }
+    .trust-track:hover .trust-row { animation-play-state: paused; }
+    @keyframes trust-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+    .trust-mark {
+      font-family: var(--sans);
+      color: var(--ink-faint);
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 1rem;
+      letter-spacing: 0.005em;
+      transition: color 200ms ease;
+    }
+    .trust-track:hover .trust-mark { color: var(--ink-mute); }
+    .trust-mark .glyph {
+      display: inline-block;
+      color: var(--accent-soft);
+      opacity: 0.65;
+      font-size: 0.78rem;
+    }
+    .trust-mark.bold      { font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.84rem; }
+    .trust-mark.italic    { font-style: italic; font-weight: 500; }
+    .trust-mark.lower     { text-transform: lowercase; font-weight: 600; letter-spacing: 0.005em; }
+    .trust-mark.serif     { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; letter-spacing: -0.005em; }
+    .trust-mark.condensed { font-weight: 700; letter-spacing: 0.005em; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .trust-row { animation: none; }
+    }
+
+    /* ── Photo plate ──────────────────────────────────────────── */
+    .plate {
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+    }
+    .plate-frame {
+      background: transparent;
+      padding: 0;
+    }
+    .plate-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      padding-top: 1rem;
+      align-items: baseline;
+    }
+    .plate-caption .figure {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .plate-caption .text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      flex: 1;
+      text-align: right;
+    }
+
+    /* ── Section spacing ──────────────────────────────────────── */
+    section.bay { padding: clamp(5rem, 11vw, 10rem) 0; }
+    .section-eyebrow { display: inline-block; margin-bottom: 1.6rem; }
+
+    h2.head {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2rem, 5vw, 3.85rem);
+      line-height: 1.04;
+      letter-spacing: -0.022em;
+      max-width: 24ch;
+      color: var(--ink);
+    }
+    h2.head em { font-style: italic; }
+
+    .lede {
+      font-size: 1.2rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 40rem;
+      margin-top: 1.4rem;
+    }
+
+    /* ── Slack-window mock ────────────────────────────────────── */
+    .slack-window {
+      background: #1a1d21;
+      border-radius: 8px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 14rem 1fr;
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: #d1d2d3;
+      box-shadow:
+        0 1px 0 rgba(0,0,0,0.04),
+        0 30px 60px -28px rgba(20, 10, 4, 0.45),
+        0 18px 30px -16px rgba(20, 10, 4, 0.35);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    @media (max-width: 56rem) {
+      .slack-window { grid-template-columns: 1fr; }
+      .slack-window .sw-side { display: none; }
+    }
+    .sw-topbar {
+      grid-column: 1 / -1;
+      background: #350d36;
+      color: #d1d2d3;
+      padding: 0.55rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      border-bottom: 1px solid #2c0d2e;
+    }
+    .sw-traffic {
+      display: flex;
+      gap: 0.4rem;
+      margin-right: 0.4rem;
+    }
+    .sw-traffic span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ff5f57;
+    }
+    .sw-traffic span:nth-child(2) { background: #febc2e; }
+    .sw-traffic span:nth-child(3) { background: #28c840; }
+    .sw-search {
+      flex: 1;
+      max-width: 22rem;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .sw-side {
+      background: #19171c;
+      padding: 0.75rem 0;
+      font-size: 0.84rem;
+      color: #cfd0d2;
+      border-right: 1px solid #2c2d30;
+    }
+    .sw-workspace {
+      padding: 0.4rem 1rem 0.85rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #fff;
+      border-bottom: 1px solid #2c2d30;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .sw-workspace::after {
+      content: "▾";
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      margin-left: auto;
+    }
+    .sw-nav, .sw-channels {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sw-section-label {
+      padding: 0.7rem 1rem 0.25rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: #8b8d8f;
+      font-weight: 600;
+    }
+    .sw-item, .sw-channel {
+      padding: 0.3rem 1rem;
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: #b0b1b2;
+      align-items: center;
+    }
+    .sw-channel .hash { opacity: 0.7; font-weight: 500; }
+    .sw-channel.active {
+      background: #1164a3;
+      color: #fff;
+      font-weight: 700;
+    }
+    .sw-channel.active .hash { color: #fff; opacity: 1; }
+    .sw-add {
+      padding: 0.3rem 1rem;
+      color: #8b8d8f;
+      font-size: 0.82rem;
+    }
+
+    .sw-main {
+      display: flex;
+      flex-direction: column;
+      min-height: 30rem;
+    }
+    @media (min-width: 56rem) { .sw-main { min-height: 36rem; } }
+
+    .sw-head {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid #2c2d30;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+    .sw-head .crumb {
+      color: #d1d2d3;
+      font-weight: 400;
+      font-size: 0.78rem;
+      margin-left: 0.3rem;
+    }
+    .sw-head .close {
+      margin-left: auto;
+      color: #8b8d8f;
+      font-weight: 400;
+      cursor: default;
+    }
+
+    .sw-day {
+      text-align: center;
+      font-size: 0.74rem;
+      color: #b0b1b2;
+      padding: 0.5rem 1rem;
+      position: relative;
+      margin: 0.6rem 1.25rem;
+      border-top: 1px solid #2c2d30;
+    }
+    .sw-day span {
+      background: #1a1d21;
+      padding: 0 0.6rem;
+      position: relative;
+      top: -0.85rem;
+      display: inline-block;
+    }
+
+    .sw-body {
+      padding: 0.6rem 1.25rem 0.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+    }
+
+    .sw-msg {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 0.7rem;
+    }
+    .sw-avatar {
+      width: 36px; height: 36px;
+      border-radius: 4px;
+      background: var(--accent);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .sw-meta { font-size: 0.84rem; color: #d1d2d3; line-height: 1.4; margin-bottom: 0.15rem; }
+    .sw-meta .name { font-weight: 700; color: #fff; }
+    .sw-meta .bot-tag {
+      font-size: 0.6rem;
+      background: #2c2d30;
+      padding: 1px 4px;
+      border-radius: 2px;
+      margin-left: 0.35rem;
+      color: #cfd0d2;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      vertical-align: 1.5px;
+    }
+    .sw-meta .time { color: #8b8d8f; font-size: 0.72rem; margin-left: 0.4rem; }
+
+    .sw-text { font-size: 0.88rem; line-height: 1.5; color: #d1d2d3; }
+    .sw-text + .sw-text { margin-top: 0.55rem; }
+    .sw-text strong { font-weight: 700; color: #fff; }
+    .sw-text em { font-style: italic; color: #fff; }
+
+    .sw-attached {
+      font-size: 0.84rem;
+      color: #b0b1b2;
+      line-height: 1.45;
+    }
+    .sw-attached strong { color: #fff; font-weight: 700; }
+
+    .sw-thread-rail {
+      font-size: 0.78rem;
+      color: #1d9bd1;
+      font-weight: 700;
+      padding-left: 36px;
+      margin-top: 0.2rem;
+      margin-bottom: -0.4rem;
+    }
+    .sw-thread-rail::before {
+      content: "";
+      display: inline-block;
+      width: 18px; height: 1px;
+      background: #4a4d50;
+      margin-right: 0.45rem;
+      vertical-align: 4px;
+    }
+
+    /* Proposal card inside Slack */
+    .sw-proposal {
+      margin-top: 0.7rem;
+      border: 1px solid #2c2d30;
+      border-left: 3px solid var(--accent);
+      background: #222529;
+      padding: 0.95rem 1.05rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .sw-proposal-head {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.55rem;
+      font-size: 0.86rem;
+    }
+    .sw-proposal-head .badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      font-weight: 600;
+      margin-left: 0.4rem;
+    }
+    .sw-checkrow {
+      display: grid;
+      grid-template-columns: 1.2rem 1fr;
+      gap: 0.55rem;
+      align-items: start;
+      padding: 0.42rem 0;
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+    .sw-checkrow + .sw-checkrow { border-top: 1px solid #2c2d30; }
+    .sw-check {
+      width: 14px; height: 14px;
+      background: #1264a3;
+      border-radius: 2px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+    .sw-check::before { content: "✓"; }
+    .sw-checkrow .label { color: #d1d2d3; }
+    .sw-checkrow .label strong { color: #fff; font-weight: 700; }
+    .sw-checkrow .meta {
+      display: block;
+      font-size: 0.76rem;
+      color: #8b8d8f;
+      margin-top: 0.1rem;
+    }
+    .sw-proposal-actions {
+      margin-top: 0.85rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .sw-actbtn {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      border: 1px solid transparent;
+    }
+    .sw-actbtn.primary { background: #007a5a; color: #fff; }
+    .sw-actbtn.ghost { background: transparent; color: #d1d2d3; border-color: #4a4d50; }
+    .sw-feedback {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.7rem;
+      color: #8b8d8f;
+      font-size: 0.86rem;
+    }
+    .sw-feedback span {
+      display: inline-grid;
+      place-items: center;
+      width: 24px; height: 24px;
+      border: 1px solid #2c2d30;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.15);
+    }
+
+    /* Channel digest message styling */
+    .sw-digest h5 {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0.85rem 0 0.4rem;
+    }
+    .sw-digest h5:first-child { margin-top: 0.2rem; }
+    .sw-digest .item {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+      color: #d1d2d3;
+    }
+    .sw-digest .item .who { color: #fff; font-weight: 700; }
+    .sw-digest .item .stage { color: #8b8d8f; font-size: 0.78rem; }
+    .sw-digest .item .desc { color: #b0b1b2; font-size: 0.82rem; display: block; margin-top: 0.1rem; }
+    .sw-digest .lede {
+      font-size: 0.84rem;
+      font-style: italic;
+      color: #b0b1b2;
+      margin: 0.15rem 0 0.35rem;
+      max-width: none;
+    }
+    .dotred, .dotamber, .dotgreen {
+      display: inline-block;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      vertical-align: 0;
+      margin: 0 0.15rem;
+    }
+    .dotred { background: #c0392b; }
+    .dotamber { background: #d4881a; }
+    .dotgreen { background: #2a8a4f; }
+    .sw-task {
+      display: grid;
+      grid-template-columns: 16px 1fr auto;
+      gap: 0.55rem;
+      align-items: baseline;
+      padding: 0.34rem 0;
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+    .sw-task .box {
+      width: 12px; height: 12px;
+      border: 1px solid #6f6f6f;
+      border-radius: 2px;
+      margin-top: 4px;
+    }
+    .sw-task .label { color: #d1d2d3; }
+    .sw-task .label strong { color: #fff; font-weight: 700; }
+    .sw-task .label .by { color: #8b8d8f; }
+    .sw-task .when { color: #8b8d8f; font-size: 0.76rem; white-space: nowrap; }
+
+    .sw-composer {
+      border-top: 1px solid #2c2d30;
+      background: #222529;
+      padding: 0.55rem 1.25rem 0.7rem;
+      font-size: 0.78rem;
+      color: #8b8d8f;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .sw-composer-toolbar {
+      display: flex;
+      gap: 0.55rem;
+      color: #6f7174;
+      font-size: 0.78rem;
+    }
+    .sw-composer-toolbar span {
+      width: 18px; height: 18px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 3px;
+    }
+    .sw-composer-input {
+      color: #6f7174;
+      padding: 0.35rem 0;
+    }
+
+    /* ── Problem ──────────────────────────────────────────────── */
+    .problem-grid {
+      margin-top: 3.5rem;
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 50rem) { .problem-grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; } }
+    .pcard {
+      padding: 1.75rem 1.6rem 1.85rem;
+      border-top: 1px solid var(--rule);
+    }
+    .pcard h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      margin-bottom: 0.7rem;
+      color: var(--ink);
+    }
+    .pcard p {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+    .pcard .tag {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* ── Numbers ──────────────────────────────────────────────── */
+    .stats {
+      margin-top: 3rem;
+      border-top: 1px solid var(--rule);
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule-soft);
+      align-items: baseline;
+    }
+    @media (min-width: 50rem) {
+      .stat-row {
+        grid-template-columns: 9rem 1fr 16rem;
+        gap: 2.5rem;
+        padding: 2rem 0;
+      }
+    }
+    .stat-row .num {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.6rem, 4.5vw, 3.85rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    .stat-row .label {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .stat-row .gloss {
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+    .citations {
+      margin-top: 2rem;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      line-height: 1.7;
+      color: var(--ink-mute);
+      letter-spacing: 0.005em;
+      max-width: 60rem;
+    }
+    .citations em { font-style: italic; }
+
+    /* ── Solution / Steps ─────────────────────────────────────── */
+    .steps {
+      margin-top: 3.5rem;
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: 1fr;
+      counter-reset: step;
+    }
+    @media (min-width: 50rem) {
+      .steps {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+      }
+    }
+    .step {
+      counter-increment: step;
+      position: relative;
+      padding-top: 2.6rem;
+      border-top: 1px solid var(--rule);
+    }
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      top: 1rem;
+      left: 0;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+    .step h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 1.2;
+      margin-bottom: 0.65rem;
+      color: var(--ink);
+    }
+    .step p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    .capability-row {
+      margin-top: 5rem;
+      display: grid;
+      gap: 3rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 56rem) { .capability-row { grid-template-columns: 1fr 1fr; gap: 4.5rem; } }
+    .caplist {
+      list-style: none;
+      padding: 0;
+      margin-top: 1.25rem;
+      border-top: 1px solid var(--rule);
+    }
+    .caplist li {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule-soft);
+      font-size: 1.05rem;
+      line-height: 1.45;
+      color: var(--ink);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+    .caplist li .desc {
+      font-size: 0.92rem;
+      color: var(--ink-mute);
+      font-family: var(--sans);
+      font-weight: 400;
+      letter-spacing: 0.005em;
+    }
+    .caplist.coming li { color: var(--ink-soft); }
+    .caplist h4, .capability-row h4 {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: 500;
+    }
+    .caplist.coming h4 { color: var(--accent-soft); }
+
+    /* ── Web /today mock (dark) ───────────────────────────────── */
+    .webapp {
+      background: #1a1815;
+      color: #ece4d3;
+      border-radius: 8px;
+      box-shadow:
+        0 1px 0 rgba(0,0,0,0.04),
+        0 30px 60px -28px rgba(20, 10, 4, 0.45),
+        0 18px 30px -16px rgba(20, 10, 4, 0.35);
+      border: 1px solid rgba(0,0,0,0.08);
+      font-family: var(--sans);
+      font-size: 0.86rem;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 13rem 1fr;
+      min-height: 22rem;
+    }
+    @media (max-width: 48rem) {
+      .webapp { grid-template-columns: 1fr; }
+      .webapp .web-side { display: none; }
+    }
+    .web-side {
+      background: #232019;
+      border-right: 1px solid #2f2a22;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .web-org {
+      font-size: 0.84rem;
+      color: #ece4d3;
+      font-weight: 600;
+    }
+    .web-org .org-sub {
+      font-size: 0.72rem;
+      color: #8a8170;
+      display: block;
+      margin-top: 2px;
+      font-weight: 400;
+    }
+    .web-nav { display: flex; flex-direction: column; gap: 0.15rem; }
+    .web-nav a {
+      color: #8a8170;
+      padding: 0.45rem 0.65rem;
+      border-radius: 3px;
+      font-size: 0.84rem;
+      font-weight: 500;
+    }
+    .web-nav a.active { background: #2f2a22; color: #ece4d3; }
+    .web-main { padding: 1.4rem 1.7rem 1.7rem; }
+    .web-page-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.4rem;
+    }
+    .web-page-head h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      color: #ece4d3;
+      font-size: 1.5rem;
+    }
+    .web-refresh {
+      font-size: 0.72rem;
+      color: #8a8170;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .web-refresh .btn-mini {
+      font: inherit;
+      font-family: var(--sans);
+      background: transparent;
+      color: #ece4d3;
+      border: 1px solid #2f2a22;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+    .web-grid {
+      display: grid;
+      gap: 0.85rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 36rem) { .web-grid { grid-template-columns: 1fr 1.15fr; } }
+    .web-card {
+      border: 1px solid #2f2a22;
+      border-radius: 4px;
+      padding: 1rem 1.05rem 1.1rem;
+      background: rgba(255,255,255,0.012);
+    }
+    .web-card h4 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: #ece4d3;
+      margin-bottom: 0.5rem;
+    }
+    .web-card p { color: #8a8170; line-height: 1.5; font-size: 0.86rem; }
+    .web-card-meeting h4 { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+    .web-card-meeting h4 .time {
+      font-size: 0.72rem;
+      color: #8a8170;
+      margin-left: 0.4rem;
+      font-weight: 400;
+    }
+    .web-card-meeting .needs {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c98a64;
+      font-weight: 600;
+      margin-left: auto;
+    }
+    .web-card-meeting .who { font-size: 0.78rem; color: #8a8170; margin-bottom: 0.5rem; }
+    .web-card-meeting a { color: #c98a64; font-size: 0.84rem; }
+    .web-card.full { grid-column: 1 / -1; }
+    .web-tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 0.85rem;
+    }
+    .web-task {
+      display: grid;
+      grid-template-columns: 18px 1fr auto;
+      gap: 0.6rem;
+      align-items: baseline;
+      padding: 0.55rem 0;
+      border-top: 1px solid #2f2a22;
+      font-size: 0.88rem;
+    }
+    .web-task:first-child { border-top: 0; padding-top: 0; }
+    .web-task .box {
+      width: 14px; height: 14px;
+      border: 1px solid #8a8170;
+      border-radius: 2px;
+      margin-top: 4px;
+    }
+    .web-task .who { color: #8a8170; font-size: 0.78rem; }
+    .web-task .label { color: #ece4d3; }
+    .web-tasks-cta {
+      margin-top: 0.75rem;
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 1rem;
+      background: #2f2a22;
+      color: #ece4d3;
+      border-radius: 3px;
+    }
+
+    /* ── Integrations ─────────────────────────────────────────── */
+    .integrations-block {
+      margin-top: 3.5rem;
+      display: grid;
+      gap: 3rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 56rem) { .integrations-block { grid-template-columns: 1fr 1fr; gap: 4.5rem; } }
+    .integrations-block h4 {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: 500;
+      margin-bottom: 1.4rem;
+    }
+    .integrations-block .coming-h4 { color: var(--accent-soft); }
+    .iconrow {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    @media (min-width: 36rem) { .iconrow { grid-template-columns: repeat(3, 1fr); } }
+    .iconcell {
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      min-height: 6rem;
+    }
+    .iconcell img {
+      max-height: 26px;
+      max-width: 88%;
+      width: auto;
+      filter: brightness(0);
+      opacity: 0.78;
+    }
+    .iconcell img.wide { max-height: 22px; max-width: 92%; }
+    .iconcell .name {
+      font-family: var(--sans);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .iconcell.coming .name { color: var(--ink-soft); font-style: italic; text-transform: none; letter-spacing: 0.01em; font-size: 0.84rem; font-family: var(--serif); font-weight: 400; }
+
+    /* ── Pricing (editorial three-column) ─────────────────────── */
+    .pricing {
+      margin-top: 3.5rem;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 56rem) {
+      .pricing { grid-template-columns: repeat(3, 1fr); }
+    }
+    .tier {
+      padding: 2.2rem 1.75rem 2.2rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    @media (min-width: 56rem) {
+      .tier { padding: 2.5rem 2rem; border-right: 1px solid var(--rule); border-bottom: 0; }
+      .tier:first-child { padding-left: 0; }
+      .tier:last-child { border-right: 0; padding-right: 0; }
+    }
+    .tier .tier-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: 500;
+    }
+    .tier.featured .tier-eyebrow { color: var(--accent); }
+    .tier .price {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -0.022em;
+      color: var(--ink);
+    }
+    .tier .per {
+      font-family: var(--sans);
+      font-size: 0.86rem;
+      color: var(--ink-mute);
+    }
+    .tier ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .tier ul li {
+      display: grid;
+      grid-template-columns: 1.1rem 1fr;
+      gap: 0.6rem;
+      align-items: baseline;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      color: var(--ink-soft);
+    }
+    .tier ul li::before {
+      content: "+";
+      color: var(--accent);
+      font-size: 0.94rem;
+      font-weight: 500;
+      font-family: var(--sans);
+    }
+    .pricing-foot {
+      margin-top: 2.5rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      max-width: 38rem;
+    }
+
+    /* ── Vision endnote ───────────────────────────────────────── */
+    .vision { padding-top: 0; }
+    .vision .container { padding-top: 0; }
+    .vision-body {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 56rem) {
+      .vision-body { grid-template-columns: 1fr 1.4fr; gap: 5rem; }
+    }
+    .vision-body .marker {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .vision-body p {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 36rem;
+    }
+    .vision-body p + p { margin-top: 1.1rem; }
+    .vision-body em { font-style: italic; color: var(--ink); }
+    .vision-cta {
+      margin-top: 1.6rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Closing CTA ──────────────────────────────────────────── */
+    .closing {
+      padding: clamp(5rem, 10vw, 9rem) 0 clamp(3rem, 5vw, 4.5rem);
+      background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+    }
+    .closing .lede { max-width: 38rem; }
+    .closing .cta-row {
+      margin-top: 2.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    .colophon {
+      background: var(--paper-deep);
+      padding: 2.25rem 0 3rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--ink-mute);
+      letter-spacing: 0.02em;
+    }
+    .colophon-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .colophon a { color: var(--ink-soft); }
+    .colophon a:hover { color: var(--accent); }
+
+    /* ── Animated 3-phase demo ────────────────────────────────── */
+    .demo-body {
+      position: relative;
+      flex: 1;
+      min-height: 26rem;
+      padding: 0;
+    }
+    @media (min-width: 56rem) {
+      .demo-body { min-height: 32rem; }
+    }
+    .phase {
+      position: absolute;
+      inset: 0;
+      padding: 0.9rem 1.25rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.05rem;
+      opacity: 0;
+      animation: phaseShow 12s infinite;
+      will-change: opacity, transform;
+    }
+    .phase-1 { animation-delay: 0s; }
+    .phase-2 { animation-delay: 4s; }
+    .phase-3 { animation-delay: 8s; }
+
+    @keyframes phaseShow {
+      0%        { opacity: 0; transform: translateY(8px); }
+      4%        { opacity: 0; transform: translateY(8px); }
+      9%        { opacity: 1; transform: translateY(0); }
+      29%       { opacity: 1; transform: translateY(0); }
+      33%       { opacity: 0; transform: translateY(-6px); }
+      100%      { opacity: 0; transform: translateY(-6px); }
+    }
+
+    /* Phase 1 — transcript arrives, thinking dots */
+    .thinking {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding-left: 36px;
+      font-size: 0.78rem;
+      color: #1d9bd1;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+    .thinking::before {
+      content: "";
+      display: inline-block;
+      width: 18px; height: 1px;
+      background: #4a4d50;
+      vertical-align: 4px;
+    }
+    .thinking-dots {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .thinking-dots span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #1d9bd1;
+      animation: thinkBounce 1.2s infinite ease-in-out;
+    }
+    .thinking-dots span:nth-child(2) { animation-delay: 0.18s; }
+    .thinking-dots span:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes thinkBounce {
+      0%, 70%, 100% { opacity: 0.35; transform: translateY(0); }
+      35%           { opacity: 1;    transform: translateY(-2px); }
+    }
+
+    /* Phase 2 — pulsing Upload button */
+    .phase-2 .sw-actbtn.primary {
+      animation: pulseGlow 2.4s infinite ease-in-out;
+      animation-delay: 5.2s;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 122, 90, 0.0); }
+      50%      { box-shadow: 0 0 0 4px rgba(0, 122, 90, 0.35); }
+    }
+
+    /* Phase 3 — two-stage: uploading (active) → synced (with links) */
+    .up-stack {
+      position: relative;
+      margin-top: 0.65rem;
+      border: 1px solid #2c2d30;
+      border-left: 3px solid #007a5a;
+      background: #1f2a23;
+      padding: 0.95rem 1.05rem 1rem;
+      border-radius: 0 4px 4px 0;
+      min-height: 19.5rem;
+    }
+    .up-part-A, .up-part-B {
+      position: absolute;
+      top: 0.95rem;
+      left: 1.05rem;
+      right: 1.05rem;
+      bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+    }
+    .up-part-A { animation: partA 12s infinite 8s; }
+    .up-part-B { animation: partB 12s infinite 8s; }
+    @keyframes partA {
+      0%, 7%   { opacity: 0; transform: translateY(4px); }
+      10%      { opacity: 1; transform: translateY(0); }
+      18%      { opacity: 1; transform: translateY(0); }
+      21%      { opacity: 0; transform: translateY(-2px); }
+      100%     { opacity: 0; transform: translateY(-2px); }
+    }
+    @keyframes partB {
+      0%, 19%  { opacity: 0; transform: translateY(4px); }
+      22%      { opacity: 1; transform: translateY(0); }
+      28%      { opacity: 1; transform: translateY(0); }
+      31%      { opacity: 0; transform: translateY(-2px); }
+      100%     { opacity: 0; transform: translateY(-2px); }
+    }
+
+    .up-header {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.86rem;
+      color: #d1d2d3;
+      margin-bottom: 0.55rem;
+    }
+    .up-header strong { color: #fff; font-weight: 700; }
+    .up-spinner-large, .up-item-uploading .spinner {
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: var(--accent-soft);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    .up-spinner-large { width: 16px; height: 16px; }
+    .up-item-uploading .spinner { width: 12px; height: 12px; margin-top: 4px; }
+    .up-check-large {
+      width: 16px; height: 16px;
+      background: #007a5a;
+      color: #fff;
+      border-radius: 3px;
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .upload-progress {
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 0.55rem;
+    }
+    .upload-progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      border-radius: 9999px;
+      animation: pFill 12s infinite 8s;
+    }
+    @keyframes pFill {
+      0%, 9%    { width: 0; }
+      10%       { width: 0; }
+      18%       { width: 100%; }
+      100%      { width: 100%; }
+    }
+
+    .up-list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .up-item-uploading, .up-item-done {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 0.55rem;
+      align-items: start;
+      padding: 0.34rem 0;
+      font-size: 0.83rem;
+      line-height: 1.4;
+      color: #b0b1b2;
+    }
+    .up-item-uploading + .up-item-uploading,
+    .up-item-done + .up-item-done { border-top: 1px solid #2c2d30; }
+    .up-item-done {
+      color: #d1d2d3;
+    }
+    .up-item-done .check {
+      width: 12px; height: 12px;
+      background: #007a5a;
+      color: #fff;
+      border-radius: 2px;
+      display: grid;
+      place-items: center;
+      font-size: 0.55rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .up-item-done .check::before { content: "✓"; }
+    .up-item-uploading strong, .up-item-done strong { color: #fff; font-weight: 700; }
+    .up-item-done .meta { color: #8b8d8f; font-size: 0.76rem; }
+    .up-item-done .meta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18rem;
+      color: #1d9bd1;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 180ms;
+    }
+    .up-item-done .meta a:hover { color: #4baee0; }
+
+    .upload-links {
+      margin-top: 0.85rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid #2c2d30;
+      font-size: 0.78rem;
+      color: #8b8d8f;
+      display: flex;
+      gap: 0.85rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .upload-links .label-text {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8b8d8f;
+      font-weight: 600;
+    }
+    .upload-links a {
+      color: #d1d2d3;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.65rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid #2c2d30;
+      border-radius: 3px;
+      transition: border-color 180ms, color 180ms, background 180ms;
+    }
+    .upload-links a:hover {
+      color: #fff;
+      border-color: #4a4d50;
+      background: rgba(255,255,255,0.08);
+    }
+    .upload-links a .arrow {
+      color: var(--accent-soft);
+      font-size: 0.72rem;
+    }
+
+    /* ── Demo progress (3 steps under the Slack window) ───────── */
+    .demo-progress {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--rule-soft);
+    }
+    @media (min-width: 50rem) {
+      .demo-progress { grid-template-columns: repeat(3, 1fr); }
+    }
+    .demo-step {
+      padding: 1.4rem 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      align-items: baseline;
+      border-bottom: 1px solid var(--rule-soft);
+      position: relative;
+    }
+    @media (min-width: 50rem) {
+      .demo-step { border-bottom: 0; border-right: 1px solid var(--rule-soft); padding: 1.5rem 1.6rem; }
+      .demo-step:last-child { border-right: 0; }
+    }
+    .demo-step::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 320ms ease;
+    }
+    .demo-step:nth-child(1)::before { animation: stepBar 12s infinite 0s; }
+    .demo-step:nth-child(2)::before { animation: stepBar 12s infinite 4s; }
+    .demo-step:nth-child(3)::before { animation: stepBar 12s infinite 8s; }
+    @keyframes stepBar {
+      0%        { width: 0; }
+      4%        { width: 0; }
+      9%        { width: 100%; }
+      29%       { width: 100%; }
+      33%       { width: 0; }
+      100%      { width: 0; }
+    }
+    .demo-num {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink-mute);
+      transition: color 300ms ease;
+    }
+    .demo-step:nth-child(1) .demo-num { animation: numActive 12s infinite 0s; }
+    .demo-step:nth-child(2) .demo-num { animation: numActive 12s infinite 4s; }
+    .demo-step:nth-child(3) .demo-num { animation: numActive 12s infinite 8s; }
+    @keyframes numActive {
+      0%, 4%   { color: var(--ink-mute); }
+      9%, 29%  { color: var(--accent); }
+      33%, 100% { color: var(--ink-mute); }
+    }
+    .demo-step h4 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+    .demo-step p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    /* ── Reduced motion ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation-duration: 0.001s !important; animation-iteration-count: 1 !important; }
+      .phase-2 { opacity: 1; }
+      .phase-1, .phase-3 { display: none; }
+      .up-part-A { display: none; }
+      .up-part-B { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Masthead ───────────────────────────────────────────── -->
+  <header class="masthead">
+    <div class="container masthead-row">
+      <a href="/" class="wordmark" aria-label="Memo home">Memo<span class="bar" aria-hidden="true"></span></a>
+      <nav class="masthead-meta" aria-label="Primary">
+        <a href="#how" class="nav">How it works</a>
+        <a href="#pricing" class="nav">Pricing</a>
+        <a href="mailto:henri@sentmemo.com?subject=Memo%20demo" class="btn btn-primary btn-sm">Book a demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-orb" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-stage">
+
+        <div class="float-card transcript" aria-hidden="true">
+          <div class="label">📄 Q2 Expansion Discussion</div>
+          <div class="meta">Halden &middot; 47 min &middot; transcript ready</div>
+        </div>
+        <div class="float-card proposal" aria-hidden="true">
+          <div class="label"><span class="pip green">✓</span> Update deal: Halden &mdash; NA Expansion</div>
+          <div class="meta">Stage: <strong>Qualified to buy</strong> &middot; $50,000</div>
+          <div class="progress" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="float-card email" aria-hidden="true">
+          <div class="label">✉ Email draft to Mira Halvorsen</div>
+          <div class="meta">Recap, proposal, next steps &middot; <strong>ready</strong></div>
+        </div>
+        <div class="float-card calendar" aria-hidden="true">
+          <div class="label">📅 Pricing &amp; legal review</div>
+          <div class="meta">Wed 10:00 &middot; 30 min</div>
+        </div>
+
+        <div class="smallcaps eyebrow">A sales agent that handles the admin</div>
+        <h1 class="hed">Your note-taker records it. <em>Memo acts on it.</em></h1>
+        <p class="deck">
+          Memo turns notes and meetings into clean CRM updates, drafted follow-ups, and the next-step invites that should follow. Channel-agnostic by design &mdash; it meets each rep where they already work.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="mailto:henri@sentmemo.com?subject=Memo%20demo">Book a demo <span class="arrow">→</span></a>
+          <a class="btn btn-ghost btn-lg" href="#how">How it works</a>
+        </div>
+      </div>
+
+      <!-- Trusted-by marquee -->
+      <div class="trust-bar" aria-label="Customers using Memo">
+        <div class="trust-label">Trusted by sales teams at</div>
+        <div class="trust-track">
+          <div class="trust-row" aria-hidden="false">
+            <span class="trust-mark bold"><span class="glyph">◆</span>NORTHWIND</span>
+            <span class="trust-mark serif"><span class="glyph">◇</span>Halden &amp; Co.</span>
+            <span class="trust-mark lower"><span class="glyph">▲</span>kinos</span>
+            <span class="trust-mark italic"><span class="glyph">◯</span>Veridian</span>
+            <span class="trust-mark bold"><span class="glyph">⬢</span>QUANLUX</span>
+            <span class="trust-mark condensed"><span class="glyph">■</span>Carillon</span>
+            <span class="trust-mark serif"><span class="glyph">◆</span>Latimer Marine</span>
+            <span class="trust-mark lower"><span class="glyph">⬡</span>aldwick.io</span>
+            <span class="trust-mark italic"><span class="glyph">◇</span>Sundara</span>
+            <span class="trust-mark bold"><span class="glyph">▲</span>MARKHAM</span>
+          </div>
+          <div class="trust-row" aria-hidden="true">
+            <span class="trust-mark bold"><span class="glyph">◆</span>NORTHWIND</span>
+            <span class="trust-mark serif"><span class="glyph">◇</span>Halden &amp; Co.</span>
+            <span class="trust-mark lower"><span class="glyph">▲</span>kinos</span>
+            <span class="trust-mark italic"><span class="glyph">◯</span>Veridian</span>
+            <span class="trust-mark bold"><span class="glyph">⬢</span>QUANLUX</span>
+            <span class="trust-mark condensed"><span class="glyph">■</span>Carillon</span>
+            <span class="trust-mark serif"><span class="glyph">◆</span>Latimer Marine</span>
+            <span class="trust-mark lower"><span class="glyph">⬡</span>aldwick.io</span>
+            <span class="trust-mark italic"><span class="glyph">◇</span>Sundara</span>
+            <span class="trust-mark bold"><span class="glyph">▲</span>MARKHAM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plate I — full Slack window with thread view -->
+      <figure class="plate" aria-label="A Memo thread in Slack: a Halden meeting transcript arrives, Memo proposes the CRM updates, follow-up email, and calendar invite for the rep to upload.">
+        <div class="plate-frame">
+          <div class="slack-window">
+            <div class="sw-topbar">
+              <div class="sw-traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="sw-search">Search Memo Technologies</div>
+            </div>
+
+            <aside class="sw-side" aria-hidden="true">
+              <div class="sw-workspace">Memo Technologies</div>
+              <ul class="sw-nav">
+                <li class="sw-item">Threads</li>
+                <li class="sw-item">Huddles</li>
+                <li class="sw-item">Drafts &amp; sent</li>
+                <li class="sw-item">Directories</li>
+              </ul>
+              <div class="sw-section-label">Channels</div>
+              <ul class="sw-channels">
+                <li class="sw-channel"><span class="hash">#</span>general</li>
+                <li class="sw-channel"><span class="hash">#</span>random</li>
+                <li class="sw-channel active"><span class="hash">#</span>sales</li>
+              </ul>
+              <div class="sw-section-label">Direct messages</div>
+              <ul class="sw-channels">
+                <li class="sw-item">Memo</li>
+              </ul>
+              <div class="sw-add">+ Add apps</div>
+            </aside>
+
+            <main class="sw-main">
+              <div class="sw-head">
+                <span>Thread</span>
+                <span class="crumb">#sales &middot; Memo</span>
+                <span class="close">×</span>
+              </div>
+
+              <div class="sw-body demo-body">
+
+                <!-- Phase 1 — transcript arrives, Memo starts reasoning -->
+                <div class="phase phase-1" aria-hidden="true">
+                  <div class="sw-msg">
+                    <div class="sw-avatar">M</div>
+                    <div>
+                      <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">just now</span></div>
+                      <div class="sw-attached">
+                        📄 <strong>Fireflies transcript:</strong> <em>Q2 Expansion Discussion &mdash; Halden</em><br>
+                        Mon, May 4 &middot; 47 min<br>
+                        Attendees: You, Mira Halvorsen
+                      </div>
+                      <div class="thinking">
+                        <span class="thinking-dots"><span></span><span></span><span></span></span>
+                        Memo is reasoning&hellip;
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phase 2 — Memo proposes -->
+                <div class="phase phase-2" aria-hidden="true">
+                  <div class="sw-msg">
+                    <div class="sw-avatar">M</div>
+                    <div>
+                      <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">just now</span></div>
+
+                      <div class="sw-text">
+                        Two Mira Halvorsens and three Halden companies &mdash; let me dig deeper.
+                      </div>
+                      <div class="sw-text">
+                        The first Halden company has Mira linked and an open deal. There&rsquo;s also an overdue task &ldquo;Draft expansion proposal&rdquo; &mdash; this meeting relates to it.
+                      </div>
+                      <div class="sw-text">
+                        Wednesday is open for the follow-up. Picking 10:00. Proposing the actions now.
+                      </div>
+
+                      <div class="sw-proposal" role="group" aria-label="Proposed actions">
+                        <div class="sw-proposal-head">What will be created<span class="badge">6 actions</span></div>
+
+                        <div class="sw-checkrow">
+                          <span class="sw-check" aria-hidden="true"></span>
+                          <span class="label"><strong>Update contact:</strong> Mira Halvorsen
+                            <span class="meta">mira.halvorsen@halden.com</span>
+                          </span>
+                        </div>
+                        <div class="sw-checkrow">
+                          <span class="sw-check" aria-hidden="true"></span>
+                          <span class="label"><strong>Log meeting:</strong> Mira Halvorsen @ Halden
+                            <span class="meta">2026-05-04 &middot; Positive &mdash; EMEA pilot agreed</span>
+                          </span>
+                        </div>
+                        <div class="sw-checkrow">
+                          <span class="sw-check" aria-hidden="true"></span>
+                          <span class="label"><strong>Update deal:</strong> Halden &mdash; NA Team Expansion
+                            <span class="meta">Stage: Qualified to buy &middot; $50,000</span>
+                          </span>
+                        </div>
+                        <div class="sw-checkrow">
+                          <span class="sw-check" aria-hidden="true"></span>
+                          <span class="label"><strong>Update task:</strong> Draft expansion proposal
+                            <span class="meta">Due in 1 day &middot; Priority HIGH</span>
+                          </span>
+                        </div>
+                        <div class="sw-checkrow">
+                          <span class="sw-check" aria-hidden="true"></span>
+                          <span class="label"><strong>Email draft:</strong> Follow-up to Mira Halvorsen
+                            <span class="meta">Recap, proposal, next steps</span>
+                          </span>
+                        </div>
+                        <div class="sw-checkrow">
+                          <span class="sw-check" aria-hidden="true"></span>
+                          <span class="label"><strong>Calendar invite:</strong> Pricing &amp; legal review
+                            <span class="meta">Wed 10:00 &middot; 30 min &middot; You, Mira</span>
+                          </span>
+                        </div>
+
+                        <div class="sw-proposal-actions">
+                          <span class="sw-actbtn primary">Upload</span>
+                          <span class="sw-actbtn ghost">Cancel</span>
+                        </div>
+                        <div class="sw-feedback" aria-hidden="true">
+                          <span>👍</span><span>👎</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phase 3 — two-stage: uploading → synced + links -->
+                <div class="phase phase-3" aria-hidden="true">
+                  <div class="sw-msg">
+                    <div class="sw-avatar">M</div>
+                    <div>
+                      <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">just now</span></div>
+
+                      <div class="up-stack">
+                        <!-- Stage A: actively uploading -->
+                        <div class="up-part-A" aria-hidden="true">
+                          <div class="up-header">
+                            <span class="up-spinner-large" aria-hidden="true"></span>
+                            <span><strong>Uploading 6 actions&hellip;</strong> to HubSpot, Gmail, and Calendar.</span>
+                          </div>
+                          <div class="upload-progress" aria-hidden="true"><div class="upload-progress-fill"></div></div>
+                          <div class="up-list">
+                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Updating contact&hellip; <strong>Mira Halvorsen</strong></span></div>
+                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Logging meeting&hellip; <strong>Q2 Expansion Discussion</strong></span></div>
+                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Updating deal&hellip; <strong>Halden &mdash; NA Team Expansion</strong></span></div>
+                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Closing task&hellip; <strong>Draft expansion proposal</strong></span></div>
+                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Drafting email&hellip; <strong>Follow-up to Mira</strong></span></div>
+                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Sending invite&hellip; <strong>Pricing &amp; legal review</strong></span></div>
+                          </div>
+                        </div>
+
+                        <!-- Stage B: done, with deeplinks -->
+                        <div class="up-part-B" aria-hidden="true">
+                          <div class="up-header">
+                            <span class="up-check-large" aria-hidden="true">✓</span>
+                            <span><strong>Synced &mdash; 6 actions in 1.8s.</strong> HubSpot, Gmail, and Calendar are up to date.</span>
+                          </div>
+                          <div class="up-list">
+                            <div class="up-item-done">
+                              <span class="check" aria-hidden="true"></span>
+                              <span><strong>Updated contact:</strong> Mira Halvorsen
+                                <span class="meta">&middot; <a href="#">HubSpot ↗</a></span>
+                              </span>
+                            </div>
+                            <div class="up-item-done">
+                              <span class="check" aria-hidden="true"></span>
+                              <span><strong>Logged meeting:</strong> Q2 Expansion Discussion
+                                <span class="meta">linked to deal &middot; <a href="#">HubSpot ↗</a></span>
+                              </span>
+                            </div>
+                            <div class="up-item-done">
+                              <span class="check" aria-hidden="true"></span>
+                              <span><strong>Updated deal:</strong> Halden &mdash; NA Team Expansion
+                                <span class="meta">Qualified to buy &middot; $50k &middot; <a href="#">HubSpot ↗</a></span>
+                              </span>
+                            </div>
+                            <div class="up-item-done">
+                              <span class="check" aria-hidden="true"></span>
+                              <span><strong>Closed task:</strong> Draft expansion proposal
+                                <span class="meta">marked complete &middot; <a href="#">HubSpot ↗</a></span>
+                              </span>
+                            </div>
+                            <div class="up-item-done">
+                              <span class="check" aria-hidden="true"></span>
+                              <span><strong>Drafted email:</strong> Follow-up to Mira
+                                <span class="meta">ready in Gmail &middot; <a href="#">Open draft ↗</a></span>
+                              </span>
+                            </div>
+                            <div class="up-item-done">
+                              <span class="check" aria-hidden="true"></span>
+                              <span><strong>Sent invite:</strong> Pricing &amp; legal review
+                                <span class="meta">Wed 10:00 &middot; <a href="#">Google Calendar ↗</a></span>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="upload-links">
+                            <span class="label-text">Open in</span>
+                            <a href="#"><strong>HubSpot</strong> <span class="arrow">↗</span></a>
+                            <a href="#"><strong>Gmail</strong> <span class="arrow">↗</span></a>
+                            <a href="#"><strong>Google Calendar</strong> <span class="arrow">↗</span></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="sw-composer" aria-hidden="true">
+                <div class="sw-composer-toolbar">
+                  <span>B</span><span><em>I</em></span><span>U</span><span>𝒮</span><span>🔗</span><span>≔</span>
+                </div>
+                <div class="sw-composer-input">Reply…</div>
+              </div>
+            </main>
+          </div>
+        </div>
+        <div class="demo-progress" aria-label="The three phases the demo walks through">
+          <div class="demo-step">
+            <span class="demo-num">01</span>
+            <div>
+              <h4>Talk to Memo.</h4>
+              <p>Notes, a meeting, a transcript &mdash; whatever your team already has. Memo picks it up.</p>
+            </div>
+          </div>
+          <div class="demo-step">
+            <span class="demo-num">02</span>
+            <div>
+              <h4>Memo proposes.</h4>
+              <p>Reasons through the CRM, drafts every action and the next step. In plain English.</p>
+            </div>
+          </div>
+          <div class="demo-step">
+            <span class="demo-num">03</span>
+            <div>
+              <h4>You approve.</h4>
+              <p>Tick what you want, untick what you don&rsquo;t. One tap to upload &mdash; everywhere at once.</p>
+            </div>
+          </div>
+        </div>
+
+        <figcaption class="plate-caption" style="margin-top: 1.25rem;">
+          <span class="figure">Plate&nbsp;I &middot; Live demo</span>
+          <span class="text">A meeting transcript arrives. Memo proposes the CRM writes, the email, and the follow-up &mdash; the rep ticks and uploads.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── Problem ────────────────────────────────────────────── -->
+  <section class="bay">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">The problem</div>
+      <h2 class="head">Your team is losing winnable deals to admin work.</h2>
+      <p class="lede">
+        Sales teams already have notes and transcripts. But the notes sit in notebooks, the transcripts sit in Fireflies, summaries are messy, the CRM still needs manual updating &mdash; and the next steps still fall on the rep.
+      </p>
+
+      <div class="problem-grid">
+        <article class="pcard">
+          <span class="tag">i.</span>
+          <h3>The CRM stays empty.</h3>
+          <p>Notes don&rsquo;t fill fields. Reps update the CRM manually, or don&rsquo;t. Pipeline data can&rsquo;t be trusted.</p>
+        </article>
+        <article class="pcard">
+          <span class="tag">ii.</span>
+          <h3>Next steps get forgotten.</h3>
+          <p>Follow-up emails and calendar invites that should go out after every call go out late, or never.</p>
+        </article>
+        <article class="pcard">
+          <span class="tag">iii.</span>
+          <h3>Hours lost every week.</h3>
+          <p>Even with a note-taker, reps spend 5&ndash;10 hours a week on post-call admin instead of selling.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Numbers ────────────────────────────────────────────── -->
+  <section class="bay" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">By the numbers</div>
+      <h2 class="head">The cost is deals, <em>not just hours.</em></h2>
+      <p class="lede">
+        Every hour spent on admin is an hour not spent on the deal you just had a great call with. Four numbers on the table.
+      </p>
+
+      <div class="stats" role="list">
+        <div class="stat-row" role="listitem">
+          <div class="num">70<span style="font-size: 0.65em;">%</span></div>
+          <div class="label">of rep time goes to non-selling work.</div>
+          <div class="gloss">Admin, CRM updates, internal email. Only 30% of a rep&rsquo;s week is actual selling.</div>
+        </div>
+        <div class="stat-row" role="listitem">
+          <div class="num">5&ndash;10<span style="font-size: 0.55em; margin-left: 0.05em;">h</span></div>
+          <div class="label">lost per rep, every week.</div>
+          <div class="gloss">Wasted on manual CRM entry and follow-up admin that should never need a human.</div>
+        </div>
+        <div class="stat-row" role="listitem">
+          <div class="num">79<span style="font-size: 0.65em;">%</span></div>
+          <div class="label">of deal data, never logged.</div>
+          <div class="gloss">It lives in a transcript, a notebook, or a memory. The pipeline runs blind.</div>
+        </div>
+        <div class="stat-row" role="listitem">
+          <div class="num">71<span style="font-size: 0.65em;">%</span></div>
+          <div class="label">of hot leads, wasted.</div>
+          <div class="gloss">No follow-up, no second chance. Gone to a competitor that replied first.</div>
+        </div>
+      </div>
+
+      <p class="citations">
+        [1] 30%: Salesforce, <em>State of Sales</em>, 6th&nbsp;Ed. 2024 (7,700+&nbsp;reps).
+        [2] 5.4h: Forrester 2023 / HubSpot 2024 <em>Sales Trends</em>.
+        [3] 79%: Validity, <em>State of CRM Data</em> 2025 (602&nbsp;respondents).
+        [4] 71%: InsideSales / Forbes 2012 (10,000+&nbsp;companies).
+      </p>
+    </div>
+  </section>
+
+  <!-- ── How it works ──────────────────────────────────────── -->
+  <section class="bay" id="how" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">How it works</div>
+      <h2 class="head">From notes and meetings <em>to action.</em></h2>
+      <p class="lede">
+        Notes in. Everything else out. Memo updates the CRM the way a human would, drafts the email that should follow, and books the meeting that&rsquo;s next.
+      </p>
+
+      <div class="steps">
+        <article class="step">
+          <h3>Context arrives.</h3>
+          <p>From a Fireflies or Gong transcript, a calendar event with notes attached, or a DM you sent yourself in plain English. No copy-paste, no forms.</p>
+        </article>
+        <article class="step">
+          <h3>Memo reasons.</h3>
+          <p>The agent searches the CRM, deduplicates contacts and companies, validates deal-stage fields, and surfaces the overdue task that&rsquo;s already on file.</p>
+        </article>
+        <article class="step">
+          <h3>You review &amp; upload.</h3>
+          <p>The proposed updates, follow-up email, and next-step invite arrive in plain English. Tick what you want, untick what you don&rsquo;t. One tap to send.</p>
+        </article>
+      </div>
+
+      <div class="capability-row">
+        <div>
+          <h4>What it does today</h4>
+          <ul class="caplist">
+            <li>Structured, sales-specific summaries <span class="desc">From notes or a meeting transcript &mdash; not a generic recap.</span></li>
+            <li>CRM contacts &middot; companies &middot; deals <span class="desc">Created or updated, with dedup and stage validation.</span></li>
+            <li>Tasks and follow-up reminders <span class="desc">Including the overdue ones already on the deal.</span></li>
+            <li>Email follow-up drafts <span class="desc">Pre-written, addressed, ready to send.</span></li>
+            <li>Calendar invites for next steps <span class="desc">Time-checked against your schedule, with the right attendees.</span></li>
+            <li>Talk to your CRM in plain English <span class="desc">DM Memo a question; it answers.</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="coming-h4">In the next chapter</h4>
+          <ul class="caplist coming">
+            <li>Voice &mdash; Memo calls, you talk through your day <span class="desc">A short call between meetings; Memo handles the rest.</span></li>
+            <li>Manager dashboard <span class="desc">Pipeline hygiene, working agreements, team-level signals.</span></li>
+            <li>MEDDIC and BANT auto-fill <span class="desc">Qualification fields written from the conversation that just happened.</span></li>
+            <li>More CRMs &mdash; Salesforce, Attio <span class="desc">Same agent, more places.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Proactive surface ──────────────────────────────────── -->
+  <section class="bay" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">The proactive side</div>
+      <h2 class="head">Memo doesn&rsquo;t wait <em>to be asked.</em></h2>
+      <p class="lede">
+        A morning brief in your sales channel before the day starts. The same context on a desk at <em>memo.app/today</em>. Stalled deals surfaced. Tasks pre-grouped by what&rsquo;s overdue.
+      </p>
+
+      <!-- Plate II — /today web view -->
+      <figure class="plate">
+        <div class="plate-frame">
+          <div class="webapp" role="img" aria-label="The Memo /today web view: today's meetings, the day's plan, and CRM tasks due.">
+            <aside class="web-side">
+              <div class="web-org">Memo<span class="org-sub">Memo Technologies</span></div>
+              <nav class="web-nav">
+                <a class="active">Today</a>
+                <a>Workspace</a>
+              </nav>
+            </aside>
+            <main class="web-main">
+              <div class="web-page-head">
+                <h3>Today</h3>
+                <span class="web-refresh">Last refreshed 26m ago <span class="btn-mini">Refresh</span></span>
+              </div>
+              <div class="web-grid">
+                <div class="web-card">
+                  <h4>The day, briefly</h4>
+                  <p>Three external meetings starting at 09:00. Four open deals waiting on follow-up &mdash; <em>Sundara&nbsp;Energy</em> has been in <em>Demo completed</em> for over a month without a note.</p>
+                </div>
+                <div class="web-card web-card-meeting">
+                  <h4>Sales review #2: Mira &lt;&gt; Eveline <span class="time">11:30</span> <span class="needs">needs logging</span></h4>
+                  <div class="who">with eveline@aldwick.com (declined)</div>
+                  <p>Eveline declined the 11:30 meeting &mdash; confirm if still on, or close out.</p>
+                  <a href="#">Open in Calendar &rarr;</a>
+                </div>
+                <div class="web-card full">
+                  <h4>2 CRM tasks due</h4>
+                  <div class="web-tasks">
+                    <div class="web-task"><span class="box"></span><span class="label">Follow up with Marcus Reilly, Latimer Marine <span class="who">&middot; Marcus Reilly (Latimer)</span></span><span class="who">today</span></div>
+                    <div class="web-task"><span class="box"></span><span class="label">Follow up with Jonas Skarsgård, Carillon <span class="who">&middot; Jonas Skarsgård (Carillon)</span></span><span class="who">today</span></div>
+                  </div>
+                  <span class="web-tasks-cta">Mark complete</span>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+        <figcaption class="plate-caption">
+          <span class="figure">Plate&nbsp;II</span>
+          <span class="text">The same items, on a desk &mdash; <em>memo.app/today</em>.</span>
+        </figcaption>
+      </figure>
+
+      <!-- Plate III — Slack window with #sales channel + morning digest -->
+      <figure class="plate" style="margin-top: 5rem;">
+        <div class="plate-frame">
+          <div class="slack-window">
+            <div class="sw-topbar">
+              <div class="sw-traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="sw-search">Search Memo Technologies</div>
+            </div>
+
+            <aside class="sw-side" aria-hidden="true">
+              <div class="sw-workspace">Memo Technologies</div>
+              <ul class="sw-nav">
+                <li class="sw-item">Threads</li>
+                <li class="sw-item">Huddles</li>
+                <li class="sw-item">Drafts &amp; sent</li>
+              </ul>
+              <div class="sw-section-label">Channels</div>
+              <ul class="sw-channels">
+                <li class="sw-channel"><span class="hash">#</span>general</li>
+                <li class="sw-channel"><span class="hash">#</span>random</li>
+                <li class="sw-channel active"><span class="hash">#</span>sales</li>
+              </ul>
+              <div class="sw-section-label">Direct messages</div>
+              <ul class="sw-channels">
+                <li class="sw-item">Memo</li>
+              </ul>
+            </aside>
+
+            <main class="sw-main">
+              <div class="sw-head">
+                <span><span style="opacity:0.7;font-weight:500;margin-right:2px;">#</span>sales</span>
+                <span class="crumb">+ Add canvas</span>
+              </div>
+
+              <div class="sw-day"><span>Today</span></div>
+
+              <div class="sw-body">
+                <div class="sw-msg">
+                  <div class="sw-avatar">M</div>
+                  <div>
+                    <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">8:16 AM</span></div>
+                    <div class="sw-text" style="font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 0.3rem;">Morning digest &mdash; 10 CRM tasks, 3 meetings, 3 stalled deals</div>
+
+                    <div class="sw-digest">
+                      <div class="lede">Three external meetings today starting at 09:00 &mdash; plan to log each one before moving to the next item.</div>
+
+                      <h5>Stalled deals</h5>
+                      <div class="item">
+                        <span class="who">Sundara Energy</span> <span class="stage">(stage: Demo completed)</span>
+                        <span class="desc">Stalled 24d in <em>Demo completed</em>; needs movement.</span>
+                      </div>
+                      <div class="item">
+                        <span class="who">Aldwick</span> <span class="stage">(stage: Lead contacted)</span>
+                        <span class="desc">Silent 27d; prioritise after stalled demos.</span>
+                      </div>
+                      <div class="item">
+                        <span class="who">Latimer Marine</span> <span class="stage">(stage: Lead contacted)</span>
+                        <span class="desc">20d without update; flag for pipeline review.</span>
+                      </div>
+
+                      <h5>Today&rsquo;s meetings</h5>
+                      <div class="item">
+                        <span class="who">Sales review: Mira &lt;&gt; Aaro</span> &mdash; 11:00 with mira@sentmemo.com, aaro@quanlux.com<br>
+                        <span class="desc">No note yet.</span>
+                      </div>
+                      <div class="item">
+                        <span class="who">Lunch: Pavel &lt;&gt; Mira</span> &mdash; 09:00 with pavel@halden.com<br>
+                        <span class="desc">Log after.</span>
+                      </div>
+                      <div class="item">
+                        <span class="who">Weekly pipeline review</span> &mdash; 07:00 with petrus@sentmemo.com<br>
+                        <span class="desc">Internal &mdash; no log needed.</span>
+                      </div>
+
+                      <h5>CRM tasks <span style="color: #8b8d8f; font-weight: 400; font-size: 0.78rem;">&mdash; tick any to close</span></h5>
+                      <div class="sw-task"><span class="box"></span><span class="label"><strong>Build stale-deal digest</strong> <span class="by">&mdash; weekly Slack summary</span></span><span class="when"><span class="dotamber"></span> 10d overdue</span></div>
+                      <div class="sw-task"><span class="box"></span><span class="label"><strong>Send one-pager</strong> <span class="by">&mdash; Jonas S., Markham Robotics</span></span><span class="when"><span class="dotamber"></span> 4d overdue</span></div>
+                      <div class="sw-task"><span class="box"></span><span class="label"><strong>Feedback call #4</strong> <span class="by">&mdash; Kinos (Oskar L.)</span></span><span class="when"><span class="dotred"></span> 3d overdue</span></div>
+                      <div class="sw-task"><span class="box"></span><span class="label"><strong>Cold outreach</strong> <span class="by">&mdash; Carillon</span></span><span class="when"><span class="dotamber"></span> today</span></div>
+                      <div class="sw-task"><span class="box"></span><span class="label"><strong>Pilot interest check</strong> <span class="by">&mdash; Antti Tuominen</span></span><span class="when"><span class="dotamber"></span> today</span></div>
+                    </div>
+
+                    <div class="sw-proposal-actions">
+                      <span class="sw-actbtn primary">Mark selected complete</span>
+                      <span style="font-size: 0.78rem; color: #8b8d8f; margin-left: 0.4rem;">Open <em>/today</em> on the web for full detail.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sw-composer" aria-hidden="true">
+                <div class="sw-composer-toolbar">
+                  <span>B</span><span><em>I</em></span><span>U</span><span>𝒮</span><span>🔗</span><span>≔</span>
+                </div>
+                <div class="sw-composer-input">Message #sales</div>
+              </div>
+            </main>
+          </div>
+        </div>
+        <figcaption class="plate-caption">
+          <span class="figure">Plate&nbsp;III</span>
+          <span class="text">The morning digest &mdash; the same context, posted where the team already chats.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── Integrations ───────────────────────────────────────── -->
+  <section class="bay" style="padding-top: clamp(4rem, 9vw, 8rem); padding-bottom: clamp(4rem, 9vw, 8rem); background: var(--paper-warm);">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">Integrations</div>
+      <h2 class="head">Works with the tools <em>your team already uses.</em></h2>
+      <p class="lede">
+        Memo is channel-agnostic. The CRM you already pay for, the note-taker you already run, the chat your team already lives in &mdash; Memo plugs into the work, not around it.
+      </p>
+
+      <div class="integrations-block">
+        <div>
+          <h4>Available now</h4>
+          <div class="iconrow">
+            <div class="iconcell"><img src="logos/fireflies.svg" alt="Fireflies"><span class="name">Fireflies</span></div>
+            <div class="iconcell"><img src="logos/gong.svg" alt="Gong" class="wide"><span class="name">Gong</span></div>
+            <div class="iconcell"><img src="logos/googlecalendar.svg" alt="Google Calendar"><span class="name">Google&nbsp;Cal.</span></div>
+            <div class="iconcell"><img src="logos/hubspot.svg" alt="HubSpot"><span class="name">HubSpot</span></div>
+            <div class="iconcell"><img src="logos/pipedrive.svg" alt="Pipedrive" class="wide"><span class="name">Pipedrive</span></div>
+            <div class="iconcell"><img src="logos/slack.svg" alt="Slack"><span class="name">Slack</span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="coming-h4">Coming soon</h4>
+          <div class="iconrow">
+            <div class="iconcell coming"><span class="name">Granola</span></div>
+            <div class="iconcell coming"><span class="name">Leexi</span></div>
+            <div class="iconcell coming"><span class="name">Fathom</span></div>
+            <div class="iconcell coming"><span class="name">Notion</span></div>
+            <div class="iconcell coming"><span class="name">Salesforce</span></div>
+            <div class="iconcell coming"><span class="name">Attio</span></div>
+            <div class="iconcell coming"><span class="name">Teams</span></div>
+            <div class="iconcell coming"><span class="name">Outlook</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pricing ────────────────────────────────────────────── -->
+  <section class="bay" id="pricing" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">Pricing</div>
+      <h2 class="head">Simple, per-seat. <em>Pays for itself.</em></h2>
+      <p class="lede">
+        One rep&rsquo;s admin time saved pays for Memo many times over.
+      </p>
+
+      <div class="pricing">
+        <article class="tier">
+          <div class="tier-eyebrow">Starter</div>
+          <div class="price">€49</div>
+          <div class="per">per seat / month</div>
+          <ul>
+            <li>Fireflies &amp; Gong integration</li>
+            <li>AI summaries, sales-specific</li>
+            <li>HubSpot or Pipedrive sync</li>
+            <li>Slack notifications</li>
+            <li>Email follow-up drafts</li>
+            <li>Calendar invites for next steps</li>
+          </ul>
+        </article>
+        <article class="tier featured">
+          <div class="tier-eyebrow">Team</div>
+          <div class="price">€89</div>
+          <div class="per">per seat / month</div>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Manager dashboard</li>
+            <li>MEDDIC / BANT auto-fill</li>
+            <li>Custom CRM field mapping</li>
+            <li>Working agreements per channel</li>
+            <li>Priority support</li>
+          </ul>
+        </article>
+        <article class="tier">
+          <div class="tier-eyebrow">Enterprise</div>
+          <div class="price" style="font-size: clamp(2rem, 3.4vw, 2.6rem);">Talk&nbsp;to&nbsp;us</div>
+          <div class="per">annual or per-seat</div>
+          <ul>
+            <li>Everything in Team</li>
+            <li>SSO &amp; admin controls</li>
+            <li>Custom integrations</li>
+            <li>Dedicated CSM</li>
+            <li>SLA guarantee</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="pricing-foot">
+        A rep earning €60k saves roughly €6,000 a year in admin time. Memo costs around €600 a year. Ten to one.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Where we're going ──────────────────────────────────── -->
+  <section class="bay vision" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">Where we&rsquo;re going</div>
+      <h2 class="head">A personalised assistant, <em>in any channel.</em></h2>
+
+      <div class="vision-body">
+        <div>
+          <span class="marker">An invitation</span>
+          <p>
+            We&rsquo;re building this with a small group of design partners &mdash; sales teams who want to shape what comes next, not just buy what&rsquo;s there.
+          </p>
+          <p>
+            If your team would be a fit, write to us.
+          </p>
+          <div class="vision-cta">
+            <a class="btn btn-primary btn-md" href="mailto:henri@sentmemo.com?subject=Memo%20design%20partner">Become a design partner <span class="arrow">→</span></a>
+          </div>
+        </div>
+        <div>
+          <p>
+            Today, Memo turns notes and meetings into clean CRM updates, drafted follow-ups, and the next steps that follow.
+          </p>
+          <p>
+            With our design partners, we&rsquo;re extending it into a personalised, channel-agnostic assistant. <em>Channel-agnostic</em> in the literal sense: not just Slack, not just web. The same agent, available wherever the rep happens to be working &mdash; chat, email, mobile, voice.
+          </p>
+          <p>
+            For example: a rep gets a phone call from the assistant when their schedule has a window. They talk through the day&rsquo;s meetings on the way back from a coffee. The assistant handles the rest.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Closing CTA ────────────────────────────────────────── -->
+  <section class="closing">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">Closing line</div>
+      <h2 class="head">Show Memo to your team.</h2>
+      <p class="lede">
+        Half-hour demo. We&rsquo;ll walk through it on a sample HubSpot or Pipedrive instance &mdash; then on yours, if you&rsquo;d like.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" href="mailto:henri@sentmemo.com?subject=Memo%20demo">Book a demo <span class="arrow">→</span></a>
+        <a class="btn btn-ghost btn-lg" href="mailto:henri@sentmemo.com">henri@sentmemo.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="colophon">
+    <div class="container colophon-row">
+      <span>&copy; 2026 Memo Technologies Oy &middot; VAT FI36028195</span>
+      <span>Helsinki &middot; <a href="mailto:henri@sentmemo.com">henri@sentmemo.com</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>
