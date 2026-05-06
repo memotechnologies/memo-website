@@ -1258,6 +1258,37 @@
     }
     .iconcell.coming .name { color: var(--ink-soft); font-style: italic; text-transform: none; letter-spacing: 0.01em; font-size: 0.84rem; font-family: var(--serif); font-weight: 400; }
 
+    /* ── Trusted-by strip ─────────────────────────────────────── */
+    .trusted {
+      padding: clamp(2.25rem, 5vw, 3.5rem) 0;
+      background: var(--paper-warm);
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .trusted-eyebrow {
+      display: block;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .trusted-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: clamp(2rem, 7vw, 4.5rem);
+    }
+    .trusted-row img {
+      height: 28px;
+      width: auto;
+      filter: brightness(0);
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+    .trusted-row img:hover { opacity: 0.85; }
+    @media (min-width: 36rem) {
+      .trusted-row img { height: 32px; }
+    }
+
     /* ── Pricing (editorial three-column) ─────────────────────── */
     .pricing {
       margin-top: 3.5rem;
@@ -2076,6 +2107,18 @@
     </div>
   </section>
 
+  <!-- ── Trusted by ─────────────────────────────────────────── -->
+  <section class="trusted">
+    <div class="container">
+      <div class="smallcaps trusted-eyebrow">Trusted by sales teams at</div>
+      <div class="trusted-row">
+        <img src="logos/brang.svg" alt="Brang">
+        <img src="logos/inven.svg" alt="Inven">
+        <img src="logos/rotomate.svg" alt="RotoMate">
+      </div>
+    </div>
+  </section>
+
   <!-- ── Problem ────────────────────────────────────────────── -->
   <section class="bay">
     <div class="container">
@@ -2372,6 +2415,7 @@
             <div class="iconcell"><img src="logos/fireflies.svg" alt="Fireflies"><span class="name">Fireflies</span></div>
             <div class="iconcell"><img src="logos/gong.svg" alt="Gong" class="wide"><span class="name">Gong</span></div>
             <div class="iconcell"><img src="logos/googlecalendar.svg" alt="Google Calendar"><span class="name">Google&nbsp;Cal.</span></div>
+            <div class="iconcell"><img src="logos/granola.svg" alt="Granola"><span class="name">Granola</span></div>
             <div class="iconcell"><img src="logos/hubspot.svg" alt="HubSpot"><span class="name">HubSpot</span></div>
             <div class="iconcell"><img src="logos/pipedrive.svg" alt="Pipedrive" class="wide"><span class="name">Pipedrive</span></div>
             <div class="iconcell"><img src="logos/slack.svg" alt="Slack"><span class="name">Slack</span></div>
