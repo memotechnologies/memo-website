@@ -331,32 +331,38 @@
       border-radius: 9999px;
     }
 
+    /* Cards ride out into the viewport side-gutters so they clear the
+       centred headline; the calc() tracks the gutter as the screen widens
+       (1rem from the viewport edge), clamped so they stay anchored near the
+       content on ultra-wide displays. */
     .float-card.transcript {
-      top: 1rem;
-      left: -0.5rem;
-      width: 16rem;
+      top: 0;
+      left: clamp(-15rem, calc((100% - 100vw) / 2 + 0.75rem), -0.5rem);
+      width: 14.5rem;
       transform: rotate(-1.6deg);
     }
     .float-card.proposal {
-      top: -0.5rem;
-      right: -1rem;
-      width: 18rem;
+      top: -1.5rem;
+      right: clamp(-15rem, calc((100% - 100vw) / 2 + 0.75rem), -1rem);
+      width: 16rem;
       transform: rotate(1.4deg);
     }
     .float-card.email {
-      bottom: 5rem;
-      left: -1.5rem;
-      width: 16.5rem;
+      bottom: 3.5rem;
+      left: clamp(-15rem, calc((100% - 100vw) / 2 + 0.75rem), -1.5rem);
+      width: 15.5rem;
       transform: rotate(0.8deg);
     }
     .float-card.calendar {
-      bottom: 7rem;
-      right: 0;
-      width: 14.5rem;
+      bottom: 5.5rem;
+      right: clamp(-15rem, calc((100% - 100vw) / 2 + 0.75rem), 0rem);
+      width: 13rem;
       transform: rotate(-1.2deg);
     }
 
-    @media (max-width: 64rem) {
+    /* Only show the floating cards once the viewport is wide enough to seat
+       them in the gutters without colliding with the headline. */
+    @media (max-width: 80rem) {
       .float-card { display: none; }
     }
 
