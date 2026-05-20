@@ -1303,16 +1303,15 @@
     /* ── Animated 3-phase demo ────────────────────────────────── */
     .demo-body {
       position: relative;
+      display: grid;
       flex: 1;
-      min-height: 26rem;
       padding: 0;
     }
-    @media (min-width: 56rem) {
-      .demo-body { min-height: 32rem; }
-    }
+    /* All phases share one grid cell so they cross-fade on top of each other,
+       while the cell auto-sizes to the tallest phase. This keeps the proposal
+       panel from spilling out the bottom and overlapping the composer below. */
     .phase {
-      position: absolute;
-      inset: 0;
+      grid-area: 1 / 1;
       padding: 0.9rem 1.25rem 0.5rem;
       display: flex;
       flex-direction: column;
