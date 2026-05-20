@@ -194,7 +194,7 @@
       width: min(80rem, 110vw);
       height: 36rem;
       background:
-        radial-gradient(circle at 50% 40%, var(--accent-glow) 0%, rgba(232, 220, 200, 0.45) 22%, transparent 55%);
+        radial-gradient(ellipse closest-side at 50% 45%, var(--accent-glow) 0%, rgba(232, 220, 200, 0.45) 28%, transparent 100%);
       pointer-events: none;
       z-index: 0;
     }
