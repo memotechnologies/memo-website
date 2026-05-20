@@ -311,6 +311,13 @@
     }
     .float-card .label .pip.green { background: #007a5a; }
     .float-card .label .pip.blue  { background: #1264a3; }
+    .float-card .label .logo {
+      width: 1.15rem;
+      height: 1.15rem;
+      flex-shrink: 0;
+      object-fit: contain;
+      display: block;
+    }
     .float-card .meta {
       color: var(--ink-mute);
       font-size: 0.74rem;
