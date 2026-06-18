@@ -1288,6 +1288,19 @@
       gap: 0.75rem;
       flex-wrap: wrap;
     }
+    .closing .waitlist-embed {
+      margin-top: 2.4rem;
+      max-width: 40rem;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .closing .waitlist-embed iframe { display: block; width: 100%; border: 0; }
+    /* Until a form URL is pasted into the iframe src, hide the empty embed
+       and keep the mailto fallback. Filling the src flips it automatically. */
+    .closing .waitlist-embed:has(iframe[src=""]) { display: none; }
+    .closing .waitlist-embed:has(iframe:not([src=""])) ~ .cta-fallback { display: none; }
 
     /* ── Footer ───────────────────────────────────────────────── */
     .colophon {
