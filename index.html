@@ -48,11 +48,34 @@
     }
 
     .logo {
+      position: relative;
       font-size: 4.5rem;
       font-weight: 700;
       letter-spacing: -0.04em;
       margin-bottom: 1.25rem;
       color: #1a1612;
+      /* Long-exposure bloom radiating off the type */
+      text-shadow:
+        0 0 18px rgba(160, 83, 47, 0.10),
+        0 0 46px rgba(160, 83, 47, 0.07);
+    }
+
+    /* Blurred, slowly drifting copy of the wordmark — a smeared light trail */
+    .logo::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: #A0532F;
+      filter: blur(11px);
+      opacity: 0.32;
+      z-index: -1;
+      pointer-events: none;
+      animation: smear 13s ease-in-out infinite alternate;
+    }
+
+    @keyframes smear {
+      0%   { transform: translateX(-3px) translateY(0.5px); opacity: 0.24; filter: blur(9px); }
+      100% { transform: translateX(3px)  translateY(-0.5px); opacity: 0.40; filter: blur(14px); }
     }
 
     .tagline {
@@ -97,6 +120,82 @@
       left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
+      filter: blur(8px);
+      will-change: transform, opacity;
+      animation: glowDrift 27s ease-in-out infinite alternate;
+    }
+
+    /* Larger, softer bloom behind everything for long-exposure depth */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 820px;
+      height: 820px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160, 83, 47, 0.07) 0%, transparent 65%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(34px);
+      pointer-events: none;
+      will-change: transform;
+      animation: bloomDrift 35s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowDrift {
+      0%   { transform: translate(-52%, -50%) scale(1);    opacity: 0.85; }
+      50%  { transform: translate(-48%, -53%) scale(1.12); opacity: 1; }
+      100% { transform: translate(-50%, -47%) scale(1.05); opacity: 0.9; }
+    }
+
+    @keyframes bloomDrift {
+      0%   { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-47%, -52%) scale(1.16); }
+    }
+
+    /* ── Film grain ─────────────────────────────────────────────── */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .grain::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      opacity: 0.4;
+      mix-blend-mode: soft-light;
+      animation: grain 0.7s steps(1) infinite;
+    }
+
+    @keyframes grain {
+      0%   { transform: translate(0, 0); }
+      10%  { transform: translate(-4%, -4%); }
+      20%  { transform: translate(-8%, 4%); }
+      30%  { transform: translate(6%, -8%); }
+      40%  { transform: translate(-6%, 6%); }
+      50%  { transform: translate(8%, 2%); }
+      60%  { transform: translate(2%, -6%); }
+      70%  { transform: translate(-8%, -2%); }
+      80%  { transform: translate(6%, 8%); }
+      90%  { transform: translate(-2%, 4%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .grain::before,
+      .glow,
+      .hero::before,
+      .logo::after {
+        animation: none;
+      }
     }
 
     .footer {
@@ -110,9 +209,10 @@
 <body>
   <div class="hero">
     <div class="glow"></div>
-    <h1 class="logo">Memo</h1>
+    <h1 class="logo" data-text="Memo">Memo</h1>
     <a href="mailto:henri@sentmemo.com" class="cta">Get in touch</a>
     <p class="footer">&copy; 2026 Memo Technologies Oy &middot; VAT FI36028195</p>
   </div>
+  <div class="grain" aria-hidden="true"></div>
 </body>
 </html>
