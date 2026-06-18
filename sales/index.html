@@ -107,7 +107,7 @@
       <nav class="masthead-meta" aria-label="Primary">
         <a href="#how" class="nav">How it works</a>
         <a href="#pricing" class="nav">Pricing</a>
-        <a href="mailto:henri@sentmemo.com?subject=Memo%20demo" class="btn btn-primary btn-sm">Book a demo</a>
+        <a href="#waitlist" class="btn btn-primary btn-sm">Join waitlist</a>
       </nav>
     </div>
   </header>
@@ -143,7 +143,7 @@
           Sales assistant that runs your busywork. While you sleep, Memo pulls context across every channel you already work in. Preps your meetings, drafts the follow-ups, closes the tasks. You approve in one tap.
         </p>
         <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" href="mailto:henri@sentmemo.com?subject=Memo%20demo">Book a demo <span class="arrow">→</span></a>
+          <a class="btn btn-primary btn-lg" href="#waitlist">Join waitlist <span class="arrow">→</span></a>
         </div>
       </div>
 
@@ -770,14 +770,31 @@
   </section>
 
   <!-- ── Closing CTA ────────────────────────────────────────── -->
-  <section class="closing">
+  <section class="closing" id="waitlist">
     <div class="container">
-      <h2 class="head">Show Memo to your team.</h2>
+      <h2 class="head">Join the waitlist.</h2>
       <p class="lede">
-        Half-hour demo. We&rsquo;ll walk through it on a sample HubSpot or Pipedrive instance &mdash; then on yours, if you&rsquo;d like.
+        Memo is rolling out to sales teams in waves. Leave your details and we&rsquo;ll reach out when a spot opens &mdash; and walk you through it on a sample HubSpot or Pipedrive instance, then on yours.
       </p>
-      <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="mailto:henri@sentmemo.com?subject=Memo%20demo">Book a demo <span class="arrow">→</span></a>
+      <!--
+        WAITLIST FORM EMBED
+        1. Build a form in Tally (tally.so) or Google Forms with fields:
+           Full name · Work email · Company · CRM (HubSpot/Pipedrive/Salesforce/Other) · Team size
+        2. Copy its share/embed link and paste it into the iframe `src` below.
+        3. Delete the .cta-fallback block once the form is live.
+        Tally tip: append ?hideTitle=1&transparentBackground=1&dynamicHeight=1 to the src.
+      -->
+      <div class="waitlist-embed">
+        <iframe
+          src=""
+          title="Join the Memo waitlist"
+          width="100%"
+          height="520"
+          frameborder="0"
+          loading="lazy"></iframe>
+      </div>
+      <div class="cta-row cta-fallback">
+        <a class="btn btn-primary btn-lg" href="mailto:henri@sentmemo.com?subject=Join%20the%20Memo%20waitlist&body=Name%3A%0AWork%20email%3A%0ACompany%3A%0ACRM%3A%0ATeam%20size%3A">Join waitlist <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
