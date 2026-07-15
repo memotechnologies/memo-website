@@ -174,8 +174,10 @@
       font-weight: 500;
     }
     .masthead-meta a.nav:hover { color: var(--accent); }
+    .masthead-meta a.login { color: var(--ink); }
     @media (max-width: 36rem) {
       .masthead-meta a.nav { display: none; }
+      .masthead-meta a.login { display: inline-flex; }
     }
 
     /* ── Hero ─────────────────────────────────────────────────── */
