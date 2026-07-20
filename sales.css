@@ -236,19 +236,29 @@
     .hed {
       font-family: var(--serif);
       font-weight: 500;
-      font-size: clamp(2.6rem, 7.5vw, 5.6rem);
-      line-height: 1.02;
+      font-size: clamp(2.4rem, 6.4vw, 4.8rem);
+      line-height: 1.04;
       letter-spacing: -0.025em;
       color: var(--ink);
       margin: 0 auto 1.6rem;
-      max-width: 18ch;
-      -webkit-hyphens: auto;
-      hyphens: auto;
+      /* 24ch (was 18ch at 5.6rem) — the hed is now a full sentence rather than
+         two short clauses, and the narrower measure broke it over four lines,
+         pushing the CTA and the Slack plate below the fold. */
+      /* min(…, 100%) so the wider measure never exceeds the container: at the
+         clamp floor (2.4rem) a flat 24ch overflows a 390px viewport. */
+      max-width: min(24ch, 100%);
+      /* No auto-hyphenation in the hero hed — it broke "touchpoints" across
+         lines as "touch-points". Wrap at word boundaries instead. */
+      -webkit-hyphens: manual;
+      hyphens: manual;
     }
     .hed em {
       font-style: italic;
       color: var(--accent);
       font-weight: 500;
+      /* Break the accent clause onto its own line so the hed keeps its
+         two-beat rhythm instead of running on from the ink sentence. */
+      display: block;
     }
     .hero .deck {
       max-width: 36rem;
