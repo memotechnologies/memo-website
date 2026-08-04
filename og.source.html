@@ -7,12 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper:      #f8f3e6;
-    --paper-warm: #e8dcc8;
-    --ink:        #1a1612;
-    --ink-soft:   #463e33;
-    --ink-mute:   #847866;
-    --accent:     #A0532F;
+    --paper:      #f6f6f2;
+    --paper-warm: #dfeae4;
+    --ink:        #131c18;
+    --ink-soft:   #4f5a54;
+    --ink-mute:   #5c6861;
+    --accent:     #0f5a41;
+    --accent-deep: #0e3b2e;
     --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
     --sans:  'Inter', -apple-system, Helvetica, Arial, sans-serif;
   }
@@ -31,24 +32,25 @@
     overflow: hidden;
   }
 
-  /* Warm rust bloom, centre-right — matches the lander's hero glow. */
+  /* Faint green wash, centre-right — kept well under the old rust bloom so the
+     card reads as flat paper rather than an ambient glow. */
   .glow {
     position: absolute;
     width: 760px; height: 760px;
     top: -130px; right: 40px;
-    background: radial-gradient(circle, rgba(160,83,47,0.20) 0%, rgba(160,83,47,0.10) 34%, rgba(160,83,47,0) 68%);
+    background: radial-gradient(circle, rgba(15, 90, 65, 0.07) 0%, rgba(15, 90, 65, 0.03) 34%, rgba(15, 90, 65, 0) 68%);
     pointer-events: none;
   }
 
   .mark {
     width: 96px; height: 96px;
-    border-radius: 14px;
-    background: var(--paper-warm);
+    border-radius: 7px;
+    background: var(--accent-deep);
     display: flex; align-items: center; justify-content: center;
     font-family: var(--serif);
     font-weight: 700;
     font-size: 62px;
-    color: var(--ink);
+    color: var(--paper);
     line-height: 1;
   }
 
