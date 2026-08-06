@@ -1203,95 +1203,15 @@
     }
     .iconcell.coming .name { color: var(--ink-soft); font-style: italic; text-transform: none; letter-spacing: 0.01em; font-size: 0.84rem; font-family: var(--serif); font-weight: 400; }
 
-    /* ── Pricing (editorial three-column) ─────────────────────── */
-    .pricing {
-      margin-top: 3.5rem;
-      border-top: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 56rem) {
-      .pricing { grid-template-columns: repeat(3, 1fr); }
-    }
-    .tier {
-      padding: 2.2rem 1.75rem 2.2rem 0;
-      border-bottom: 1px solid var(--rule);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    @media (min-width: 56rem) {
-      .tier { padding: 2.5rem 2rem; border-right: 1px solid var(--rule); border-bottom: 0; }
-      .tier:first-child { padding-left: 0; }
-      .tier:last-child { border-right: 0; padding-right: 0; }
-    }
-    .tier .tier-eyebrow {
-      font-family: var(--sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-      font-weight: 500;
-    }
-    .tier.featured .tier-eyebrow { color: var(--accent); }
-    .tier .price {
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: clamp(2.6rem, 4.5vw, 3.6rem);
-      line-height: 1;
-      letter-spacing: -0.022em;
-      color: var(--ink);
-    }
-    .tier .per {
-      font-family: var(--sans);
-      font-size: 0.86rem;
-      color: var(--ink-mute);
-    }
-    .tier .tier-tagline {
-      font-family: var(--serif);
-      font-size: 1rem;
-      line-height: 1.5;
-      color: var(--ink-soft);
-      max-width: 22rem;
-      margin-top: 0.2rem;
-    }
-    .tier ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .tier ul li {
-      display: grid;
-      grid-template-columns: 1.1rem 1fr;
-      gap: 0.6rem;
-      align-items: baseline;
-      font-size: 0.98rem;
-      line-height: 1.45;
-      color: var(--ink-soft);
-    }
-    .tier ul li::before {
-      content: "+";
-      color: var(--accent);
-      font-size: 0.94rem;
-      font-weight: 500;
-      font-family: var(--sans);
-    }
-    .pricing-foot {
-      margin-top: 2.5rem;
-      font-style: italic;
-      color: var(--ink-soft);
-      font-size: 1.05rem;
-      max-width: 38rem;
-    }
-
     /* ── Footer ───────────────────────────────────────────────── */
     .colophon {
-      /* Carries the paper → paper-deep transition the closing section used to
-         provide, so the footer doesn't butt against the page with a hard edge. */
-      background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 60%);
+      /* Carries the transition the closing section used to provide, so the
+         footer doesn't butt against the page with a hard edge. Starts at
+         paper-warm to match the integrations section, which became the last
+         section on the page when pricing was dropped — starting at the lighter
+         `--paper` would jump up in tone before darkening again, drawing a seam
+         right where the gradient exists to hide one. */
+      background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper-deep) 60%);
       padding: clamp(3rem, 6vw, 4.5rem) 0 3rem;
       font-family: var(--sans);
       font-size: 0.78rem;
