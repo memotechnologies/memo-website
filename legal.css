@@ -1,0 +1,140 @@
+/* Long-form legal documents. Inherits the palette and fonts from sales.css;
+   everything here is the reading measure and the document furniture that a
+   landing page has no use for. */
+
+.legal-shell {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5.5rem) var(--gutter) clamp(4rem, 9vw, 7rem);
+}
+
+.legal-shell .eyebrow {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.9rem;
+}
+
+.legal-shell h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.75rem;
+}
+
+.legal-meta {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--ink-mute);
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2.4rem;
+}
+
+.legal-lede {
+  font-size: 1.16rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  margin-bottom: 2.4rem;
+}
+
+.legal-shell h2 {
+  font-family: var(--serif);
+  font-size: 1.42rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 2.9rem 0 0.85rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.legal-shell h2:first-of-type { border-top: 0; padding-top: 0; }
+
+.legal-shell h3 {
+  font-family: var(--sans);
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  margin: 1.7rem 0 0.55rem;
+}
+
+.legal-shell p { margin-bottom: 1.05rem; }
+.legal-shell p:last-child { margin-bottom: 0; }
+
+.legal-shell ul, .legal-shell ol { margin: 0 0 1.15rem 1.35rem; }
+.legal-shell li { margin-bottom: 0.5rem; padding-left: 0.25rem; }
+.legal-shell li:last-child { margin-bottom: 0; }
+
+.legal-shell strong { font-weight: 600; }
+
+.legal-shell a { border-bottom: 1px solid var(--accent-soft); }
+.legal-shell a:hover { border-bottom-color: var(--accent); }
+
+/* Callout — the few statements a reader should not be able to miss. */
+.legal-note {
+  background: var(--paper-warm);
+  border-left: 3px solid var(--accent);
+  padding: 1.1rem 1.3rem;
+  margin: 1.6rem 0 1.8rem;
+  font-size: 1rem;
+  line-height: 1.58;
+}
+.legal-note p:last-child { margin-bottom: 0; }
+
+/* Tables scroll inside themselves rather than widening the page. */
+.legal-table-wrap {
+  overflow-x: auto;
+  margin: 1.3rem 0 1.8rem;
+  border: 1px solid var(--rule);
+  background: var(--paper-card);
+}
+
+.legal-shell table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.855rem;
+  line-height: 1.5;
+}
+
+.legal-shell th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+.legal-shell td {
+  padding: 0.8rem 1rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.legal-shell tbody tr:last-child td { border-bottom: 0; }
+.legal-shell td:first-child { font-weight: 600; white-space: nowrap; }
+
+.legal-contact {
+  margin-top: 3.2rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 34rem) {
+  .legal-shell h2 { font-size: 1.28rem; }
+  .legal-shell ul, .legal-shell ol { margin-left: 1.1rem; }
+}
