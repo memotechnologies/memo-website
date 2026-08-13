@@ -38,7 +38,7 @@
     <div class="eyebrow">Legal</div>
     <h1>Privacy Policy</h1>
     <div class="legal-meta">
-      Effective 11 August 2026 &middot; Memo Technologies Oy &middot; Business ID 3602819-5 (VAT FI36028195), Finland
+      Effective 13 August 2026 &middot; Memo Technologies Oy &middot; Business ID 3602819-5 (VAT FI36028195), Finland
     </div>
 
     <p class="legal-lede">
@@ -60,8 +60,8 @@
     <p>
       Memo Technologies Oy (&ldquo;Memo&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is a company
       registered in Finland, Business ID 3602819-5. We provide the Memo service at
-      <a href="https://app.sentmemo.com">app.sentmemo.com</a>, in Slack, and through the
-      integrations described below.
+      <a href="https://app.sentmemo.com">app.sentmemo.com</a>, in Slack, through our browser
+      extension (section 4), and through the integrations described below.
     </p>
     <p>
       For any question about this policy or about your data, write to
@@ -128,11 +128,83 @@
       type, and application logs (including errors and the timing of requests). We also record
       sessions in the web application to diagnose faults and understand how it is used; these
       recordings include content entered into the app, though never passwords, which are always
-      masked. They are stored in the EU, retained for a limited period (see section 8), and we can
+      masked. They are stored in the EU, retained for a limited period (see section 9), and we can
       exclude your account on request.
     </p>
 
-    <h2>4. Why we process it, and on what legal basis</h2>
+    <h2>4. The browser extension</h2>
+    <p>
+      Memo offers an optional browser extension. It is an accessory to a Memo account: it does
+      nothing until you connect one, and it can be disconnected or uninstalled at any time. It runs
+      on two sites and nowhere else &mdash; Google Calendar and LinkedIn &mdash; and has no access to
+      any other page you visit.
+    </p>
+
+    <h3>What it reads</h3>
+    <p>
+      <strong>Google Calendar.</strong> When you open an event, the extension reads the identifier of
+      that one event so it can ask Memo for the meeting prep belonging to it. It does not read your
+      calendar, other events, event contents or attendee lists from the page, and it never writes to
+      your calendar.
+    </p>
+    <p>
+      <strong>LinkedIn.</strong> When you click <strong>Log to Memo</strong> on a conversation, the
+      extension reads the messages of that one open conversation, together with the name, headline
+      and profile link of the person you are talking to, and sends them to your Memo account. It
+      reads nothing until you click. It does not open, browse, search or crawl LinkedIn on its own,
+      and it never sends messages or connection requests on your behalf.
+    </p>
+
+    <h3>Where that data goes</h3>
+    <p>
+      Only to Memo&rsquo;s own servers, over HTTPS, authenticated as your Memo seat. No third party
+      receives data from the extension. A conversation you log is handled exactly like a note you
+      type into Memo yourself: Memo reads it and <em>proposes</em> CRM records for you to approve, and
+      nothing is written to your CRM without that approval. The AI processing and sub-processors
+      described in sections 6 and 7 apply unchanged to anything the extension sends.
+    </p>
+
+    <h3>What it stores in your browser</h3>
+    <ul>
+      <li>Your Memo access token, issued by Memo&rsquo;s own sign-in flow. It is kept in this browser profile and is not synced to your other devices.</li>
+      <li>Your notification preference.</li>
+      <li>The selectors the extension uses to find elements on a page.</li>
+      <li>A local copy of the meeting prep for <strong>today and tomorrow&rsquo;s</strong> meetings, so a panel appears instantly when you open an event. This is CRM context &mdash; contact names, deal values, note summaries &mdash; and it lives only in your browser profile.</li>
+    </ul>
+    <p>
+      Clicking <strong>Disconnect</strong> in the extension&rsquo;s settings deletes all of the above
+      and revokes the access token on our side. Uninstalling the extension removes it too. You can
+      also revoke a connected browser from <strong>Settings &rarr; Browser extension</strong> in the
+      web app.
+    </p>
+
+    <h3>Notifications</h3>
+    <p>
+      If you enable it, the extension shows a notification a few minutes before a meeting, carrying
+      that meeting&rsquo;s prep. You choose whether it appears and how far ahead. It stays silent when
+      Memo has no context for the meeting.
+    </p>
+
+    <h3>Usage analytics</h3>
+    <p>
+      The extension reports a small, fixed set of usage events: that a prep panel was shown, that it
+      was clicked, and that a notification was shown, clicked or deliberately suppressed. Events carry
+      your workspace identifier and whether a meeting was a first meeting or a follow-up.
+      <strong>They never carry meeting titles, meeting identifiers, contact names, deal data or
+      message contents</strong> &mdash; our servers drop those fields even if a client sends them.
+    </p>
+
+    <h3>What the extension never does</h3>
+    <ul>
+      <li>Sell or share your data with anyone, for any purpose.</li>
+      <li>Use your data for advertising, or for creditworthiness or lending decisions.</li>
+      <li>Read pages other than the Google Calendar and LinkedIn pages described above.</li>
+      <li>Collect passwords, payment details, health data, or your browsing history.</li>
+      <li>Crawl, scrape in bulk, navigate on its own, or send anything on your behalf.</li>
+      <li>Download or execute remote code. It fetches configuration data only &mdash; the selectors above &mdash; which is parsed as data and never evaluated as code.</li>
+    </ul>
+
+    <h2>5. Why we process it, and on what legal basis</h2>
     <div class="legal-table-wrap">
       <table>
         <thead>
@@ -150,10 +222,10 @@
     </div>
     <p>
       Where we rely on legitimate interest, we have weighed it against your rights and you may object
-      at any time (section 9).
+      at any time (section 10).
     </p>
 
-    <h2>5. How AI is used</h2>
+    <h2>6. How AI is used</h2>
     <p>
       Memo sends the content it is working on &mdash; your notes, relevant CRM records, calendar and
       email context &mdash; to large language models in order to produce summaries, proposed CRM
@@ -176,7 +248,7 @@
       affect you within the meaning of GDPR Article 22.
     </p>
 
-    <h2>6. The systems we rely on</h2>
+    <h2>7. The systems we rely on</h2>
     <p>
       These are our sub-processors &mdash; the providers that host or process data on our behalf in
       order to run Memo.
@@ -198,7 +270,7 @@
       <a href="/dpa/">Data Processing Agreement</a>.
     </p>
 
-    <h2>7. Where your data is stored, and international transfers</h2>
+    <h2>8. Where your data is stored, and international transfers</h2>
     <p>
       Memo&rsquo;s database, application servers and analytics all run in the European Union. Data at
       rest is encrypted, and the database is not reachable from the public internet.
@@ -210,7 +282,7 @@
       retained by them for training.
     </p>
 
-    <h2>8. How long we keep it</h2>
+    <h2>9. How long we keep it</h2>
     <ul>
       <li><strong>Workspace content</strong> (notes, messages, proposals, synced CRM context) &mdash; for as long as the customer&rsquo;s account is active. On termination we delete or return it within 60 days, unless the law requires otherwise.</li>
       <li><strong>Account data</strong> &mdash; for the life of the account, then deleted.</li>
@@ -220,7 +292,7 @@
       <li><strong>Access tokens</strong> for connected systems &mdash; deleted as soon as you disconnect the integration.</li>
     </ul>
 
-    <h2>9. Your rights</h2>
+    <h2>10. Your rights</h2>
     <p>
       Under the GDPR you may request access to your personal data, correction of it, erasure,
       restriction of processing, portability, and you may object to processing based on legitimate
@@ -238,7 +310,7 @@
       (<a href="https://tietosuoja.fi/en">tietosuoja.fi</a>).
     </p>
 
-    <h2>10. Security</h2>
+    <h2>11. Security</h2>
     <p>
       We keep data in the European Union, encrypted at rest and in transit. Every customer&rsquo;s
       data is isolated at the database level, so one customer&rsquo;s workspace cannot read
@@ -251,7 +323,7 @@
       relevant supervisory authority and, where the law requires it, you, without undue delay.
     </p>
 
-    <h2>11. Cookies and similar technologies</h2>
+    <h2>12. Cookies and similar technologies</h2>
     <p>
       We use a small number of cookies and equivalent browser storage: one to keep you signed in,
       and analytics identifiers used by our analytics provider to recognise a returning session. We
@@ -259,13 +331,13 @@
       block cookies in your browser, though the sign-in cookie is required for the app to work.
     </p>
 
-    <h2>12. Children</h2>
+    <h2>13. Children</h2>
     <p>
       Memo is a business tool. It is not directed at children and we do not knowingly collect data
       from anyone under 16.
     </p>
 
-    <h2>13. Changes to this policy</h2>
+    <h2>14. Changes to this policy</h2>
     <p>
       We may update this policy as the product changes. The effective date at the top always reflects
       the current version. If a change materially affects how we handle personal data, we will tell
