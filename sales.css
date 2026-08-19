@@ -1,18 +1,52 @@
     :root {
-      --paper:        #f6f6f2;
-      --paper-card:   #eef0ea;
-      --paper-warm:   #dfeae4;
-      --paper-deep:   #c3d6cc;
-      --ink:          #131c18;
-      --ink-soft:     #4f5a54;
-      --ink-mute:     #5c6861;
-      --ink-faint:    #97a29a;
-      --rule:         #c8cfc7;
-      --rule-soft:    #e0e4dd;
+      /* ── Memo's "Close" palette ─────────────────────────────────
+         These are the app's own design tokens (app/globals.css),
+         not a marketing approximation of them: deep racing green on
+         bone. Green is the one hue a sales tool has earned — it means
+         *closed* — and at this depth it reads Nordic rather than
+         fintech mint. Keep the two files in step; where they differ,
+         the app is right. */
+
+      /* Paper — the neutral ramp, retinted bone → green-black. */
+      --paper:        #f6f6f2;  /* canvas        · neutral-50  */
+      --surface:      #ffffff;  /* cards, panels · surface     */
+      --paper-card:   #eef0ea;  /* subtle rows   · neutral-100 */
+      --paper-warm:   #dfeae4;  /* brand tint    · brand       */
+      --paper-deep:   #c3d6cc;  /* tint border   · brand-strong*/
+
+      /* Ink — a three-step text ramp, never two. */
+      --ink:          #131c18;  /* primary text   · neutral-900 */
+      --ink-soft:     #4f5a54;  /* secondary      · neutral-600 */
+      --ink-mute:     #5c6861;  /* tertiary       · ink-subtle  */
+      --ink-faint:    #97a29a;  /* captions       · neutral-400 */
+      --rule:         #c8cfc7;  /* strong border  · neutral-300 */
+      --rule-soft:    #e0e4dd;  /* default border · neutral-200 */
+
+      /* Racing green. `--primary` is the action surface and carries
+         bone, not white; `--accent` is emphasis — links and focus —
+         lifted off it so a link is not a button. */
+      --primary:      #0e3b2e;
+      --primary-hover:#0a2d23;
+      --on-primary:   #f6f6f2;
       --accent:       #0f5a41;
       --accent-deep:  #0a2d23;
-      --accent-soft:  #4ea886;
       --accent-glow:  rgba(15, 90, 65, 0.16);
+
+      /* Status. Always rendered on its own soft tint, which is what
+         keeps "won" reading as a status rather than as brand chrome. */
+      --success:      #14713f;
+      --success-soft: #dcf2e4;
+      --warning:      #8a4b06;
+      --warning-soft: #f7edd8;
+      --danger:       #a8291d;
+      --danger-soft:  #f7e4e1;
+
+      /* The same three on a dark ground — Slack's chrome, the app's dark
+         theme. A #8a4b06 amber picked for text-on-tint is mud at 6px on
+         near-black, so the dots take these instead. */
+      --success-lit:  #5fd39b;
+      --warning-lit:  #e2a45c;
+      --danger-lit:   #f28b7d;
 
       --serif: 'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
       --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -44,7 +78,7 @@
     a { color: var(--accent); text-decoration: none; }
     p { hanging-punctuation: first last; }
 
-    ::selection { background: var(--accent); color: #fff; }
+    ::selection { background: var(--primary); color: var(--on-primary); }
 
     /* ── Layout ───────────────────────────────────────────────── */
     .container {
@@ -97,10 +131,10 @@
     }
     .btn:active { transform: translateY(1px); }
     .btn-primary {
-      background: var(--accent);
-      color: #fff;
+      background: var(--primary);
+      color: var(--on-primary);
     }
-    .btn-primary:hover { background: var(--accent-deep); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); color: var(--on-primary); }
     .btn-ghost {
       background: transparent;
       color: var(--ink);
@@ -288,10 +322,12 @@
       position: absolute;
       background: #fff;
       border-radius: 10px;
+      /* Elevation in the ink hue, not a warm brown and not pure black —
+         paper lifting off paper. Mirrors the app's --shadow-pop. */
       box-shadow:
-        0 1px 0 rgba(0,0,0,0.02),
-        0 14px 30px -16px rgba(60, 40, 20, 0.18),
-        0 6px 14px -8px rgba(60, 40, 20, 0.08);
+        0 1px 0 rgb(19 28 24 / 0.02),
+        0 14px 30px -16px rgb(19 28 24 / 0.18),
+        0 6px 14px -8px rgb(19 28 24 / 0.08);
       padding: 0.85rem 1rem 0.95rem;
       font-family: var(--sans);
       font-size: 0.78rem;
@@ -321,8 +357,6 @@
       color: #fff;
       background: var(--accent);
     }
-    .float-card .label .pip.green { background: #007a5a; }
-    .float-card .label .pip.blue  { background: #1264a3; }
     .float-card .label .logo {
       width: 1.15rem;
       height: 1.15rem;
@@ -544,12 +578,6 @@
       font-weight: 700;
     }
     .sw-channel.active .hash { color: #fff; opacity: 1; }
-    .sw-add {
-      padding: 0.3rem 1rem;
-      color: #8b8d8f;
-      font-size: 0.82rem;
-    }
-
     .sw-main {
       display: flex;
       flex-direction: column;
@@ -573,13 +601,6 @@
       font-size: 0.78rem;
       margin-left: 0.3rem;
     }
-    .sw-head .close {
-      margin-left: auto;
-      color: #8b8d8f;
-      font-weight: 400;
-      cursor: default;
-    }
-
     .sw-day {
       text-align: center;
       font-size: 0.74rem;
@@ -642,89 +663,7 @@
     .sw-text strong { font-weight: 700; color: #fff; }
     .sw-text em { font-style: italic; color: #fff; }
 
-    .sw-attached {
-      font-size: 0.84rem;
-      color: #b0b1b2;
-      line-height: 1.45;
-    }
-    .sw-attached strong { color: #fff; font-weight: 700; }
-    .sw-attached-icon {
-      color: #8b8d8f;
-      vertical-align: -2px;
-      margin-right: 0.35rem;
-    }
-
-    .sw-thread-rail {
-      font-size: 0.78rem;
-      color: #1d9bd1;
-      font-weight: 700;
-      padding-left: 36px;
-      margin-top: 0.2rem;
-      margin-bottom: -0.4rem;
-    }
-    .sw-thread-rail::before {
-      content: "";
-      display: inline-block;
-      width: 18px; height: 1px;
-      background: #4a4d50;
-      margin-right: 0.45rem;
-      vertical-align: 4px;
-    }
-
     /* Proposal card inside Slack */
-    .sw-proposal {
-      margin-top: 0.7rem;
-      border: 1px solid #2c2d30;
-      border-left: 3px solid var(--accent);
-      background: #222529;
-      padding: 0.95rem 1.05rem 1rem;
-      border-radius: 0 4px 4px 0;
-    }
-    .sw-proposal-head {
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.55rem;
-      font-size: 0.86rem;
-    }
-    .sw-proposal-head .badge {
-      font-family: var(--sans);
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      font-weight: 600;
-      margin-left: 0.4rem;
-    }
-    .sw-checkrow {
-      display: grid;
-      grid-template-columns: 1.2rem 1fr;
-      gap: 0.55rem;
-      align-items: start;
-      padding: 0.42rem 0;
-      font-size: 0.84rem;
-      line-height: 1.4;
-    }
-    .sw-checkrow + .sw-checkrow { border-top: 1px solid #2c2d30; }
-    .sw-check {
-      width: 14px; height: 14px;
-      background: #1264a3;
-      border-radius: 2px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 700;
-      margin-top: 3px;
-    }
-    .sw-check::before { content: "✓"; }
-    .sw-checkrow .label { color: #d1d2d3; }
-    .sw-checkrow .label strong { color: #fff; font-weight: 700; }
-    .sw-checkrow .meta {
-      display: block;
-      font-size: 0.76rem;
-      color: #8b8d8f;
-      margin-top: 0.1rem;
-    }
     .sw-proposal-actions {
       margin-top: 0.85rem;
       display: flex;
@@ -772,9 +711,9 @@
       vertical-align: 0;
       margin: 0 0.15rem;
     }
-    .dotred { background: #c0392b; }
-    .dotamber { background: #d4881a; }
-    .dotgreen { background: #2a8a4f; }
+    .dotred { background: var(--danger-lit); }
+    .dotamber { background: var(--warning-lit); }
+    .dotgreen { background: var(--success-lit); }
     .sw-task {
       display: grid;
       grid-template-columns: 16px 1fr auto;
@@ -922,6 +861,12 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 3rem;
       }
+      /* The four-part loop — Monitors / Thinks / Does the work / Learns —
+         pairs up on a tablet and runs flat on a desk. */
+      .steps-4 { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 3rem; }
+    }
+    @media (min-width: 68rem) {
+      .steps-4 { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
     }
     .step {
       counter-increment: step;
@@ -993,18 +938,27 @@
       color: var(--ink-mute);
       font-weight: 500;
     }
-    .caplist.coming h4 { color: var(--accent-soft); }
+    /* The label does the distinguishing, not a hue — same rule the app
+       runs on (`Don't pick a hue to tell two categories apart`). */
+    .caplist.coming h4 { color: var(--ink-mute); }
 
-    /* ── Web /today mock (dark) ───────────────────────────────── */
+    /* ── Web-app mock ─────────────────────────────────────────
+       The product's own light theme, not an invention: bone canvas,
+       white cards, `neutral-200` rules, the pale-green brand tint
+       behind the active nav item with racing green on top. It used to
+       be a warm-cream dark UI, which is a palette the app deliberately
+       dropped — a screenshot of Memo that Memo does not look like is
+       worse than no screenshot. Light is also the app's own default
+       (`data-theme` resolves to light unless the OS says otherwise).
+       Shared by Plate I (Workspace) and Plate II (Today). */
     .webapp {
-      background: #1a1815;
-      color: #ece4d3;
+      background: var(--paper);
+      color: var(--ink);
       border-radius: 8px;
       box-shadow:
-        0 1px 0 rgba(0,0,0,0.04),
-        0 30px 60px -28px rgba(20, 10, 4, 0.45),
-        0 18px 30px -16px rgba(20, 10, 4, 0.35);
-      border: 1px solid rgba(0,0,0,0.08);
+        0 24px 50px -16px rgb(19 28 24 / 0.22),
+        0 2px 6px -2px rgb(19 28 24 / 0.08);
+      border: 1px solid var(--rule-soft);
       font-family: var(--sans);
       font-size: 0.86rem;
       overflow: hidden;
@@ -1017,8 +971,8 @@
       .webapp .web-side { display: none; }
     }
     .web-side {
-      background: #232019;
-      border-right: 1px solid #2f2a22;
+      background: var(--surface);
+      border-right: 1px solid var(--rule-soft);
       padding: 1rem;
       display: flex;
       flex-direction: column;
@@ -1026,41 +980,46 @@
     }
     .web-org {
       font-size: 0.84rem;
-      color: #ece4d3;
+      color: var(--ink);
       font-weight: 600;
     }
     .web-org .org-sub {
       font-size: 0.72rem;
-      color: #5c6861;
+      color: var(--ink-faint);
       display: block;
       margin-top: 2px;
       font-weight: 400;
     }
     .web-nav { display: flex; flex-direction: column; gap: 0.15rem; }
     .web-nav a {
-      color: #5c6861;
+      color: var(--ink-mute);
       padding: 0.45rem 0.65rem;
-      border-radius: 3px;
+      border-radius: 4px;
       font-size: 0.84rem;
       font-weight: 500;
     }
-    .web-nav a.active { background: #2f2a22; color: #ece4d3; }
-    .web-main { padding: 1.4rem 1.7rem 1.7rem; }
+    .web-nav a.active {
+      background: var(--paper-warm);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .web-main { padding: 1.4rem 1.7rem 1.7rem; background: var(--paper); }
     .web-page-head {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
+      gap: 0.75rem;
       margin-bottom: 1.4rem;
     }
     .web-page-head h3 {
       font-family: var(--serif);
       font-weight: 500;
-      color: #ece4d3;
+      color: var(--ink);
       font-size: 1.5rem;
     }
     .web-refresh {
       font-size: 0.72rem;
-      color: #5c6861;
+      color: var(--ink-faint);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -1068,11 +1027,12 @@
     .web-refresh .btn-mini {
       font: inherit;
       font-family: var(--sans);
-      background: transparent;
-      color: #ece4d3;
-      border: 1px solid #2f2a22;
+      font-weight: 500;
+      background: var(--surface);
+      color: var(--ink-soft);
+      border: 1px solid var(--rule-soft);
       padding: 0.2rem 0.6rem;
-      border-radius: 3px;
+      border-radius: 4px;
     }
     .web-grid {
       display: grid;
@@ -1081,37 +1041,41 @@
     }
     @media (min-width: 36rem) { .web-grid { grid-template-columns: 1fr 1.15fr; } }
     .web-card {
-      border: 1px solid #2f2a22;
-      border-radius: 4px;
+      border: 1px solid var(--rule-soft);
+      border-radius: 6px;
       padding: 1rem 1.05rem 1.1rem;
-      background: rgba(255,255,255,0.012);
+      background: var(--surface);
     }
     .web-card h4 {
       font-family: var(--serif);
       font-weight: 500;
       font-size: 1.05rem;
-      color: #ece4d3;
+      color: var(--ink);
       margin-bottom: 0.5rem;
     }
-    .web-card p { color: #5c6861; line-height: 1.5; font-size: 0.86rem; }
+    .web-card p { color: var(--ink-soft); line-height: 1.5; font-size: 0.86rem; }
     .web-card-meeting h4 { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
     .web-card-meeting h4 .time {
       font-size: 0.72rem;
-      color: #5c6861;
+      color: var(--ink-faint);
       margin-left: 0.4rem;
       font-weight: 400;
     }
+    /* A status, so it takes a tone rather than a hue of its own. */
     .web-card-meeting .needs {
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #4ea886;
+      color: var(--warning);
+      background: var(--warning-soft);
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
       font-weight: 600;
       margin-left: auto;
     }
-    .web-card-meeting .who { font-size: 0.78rem; color: #5c6861; margin-bottom: 0.5rem; }
+    .web-card-meeting .who { font-size: 0.78rem; color: var(--ink-mute); margin-bottom: 0.5rem; }
     .web-card-meeting a,
-    .web-card-meeting .mock-link { color: #4ea886; font-size: 0.84rem; }
+    .web-card-meeting .mock-link { color: var(--accent); font-size: 0.84rem; font-weight: 500; }
     .web-card.full { grid-column: 1 / -1; }
     .web-tasks {
       display: flex;
@@ -1125,18 +1089,19 @@
       gap: 0.6rem;
       align-items: baseline;
       padding: 0.55rem 0;
-      border-top: 1px solid #2f2a22;
+      border-top: 1px solid var(--rule-soft);
       font-size: 0.88rem;
     }
     .web-task:first-child { border-top: 0; padding-top: 0; }
     .web-task .box {
       width: 14px; height: 14px;
-      border: 1px solid #5c6861;
-      border-radius: 2px;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
       margin-top: 4px;
+      background: var(--surface);
     }
-    .web-task .who { color: #5c6861; font-size: 0.78rem; }
-    .web-task .label { color: #ece4d3; }
+    .web-task .who { color: var(--ink-faint); font-size: 0.78rem; }
+    .web-task .label { color: var(--ink); }
     .web-tasks-cta {
       margin-top: 0.75rem;
       display: inline-block;
@@ -1144,10 +1109,271 @@
       font-size: 0.8rem;
       font-weight: 600;
       padding: 0.45rem 1rem;
-      background: #2f2a22;
-      color: #ece4d3;
-      border-radius: 3px;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: 4px;
     }
+
+    /* ── Workspace demo (inside .webapp) ──────────────────────
+       Plate I. The same light frame as Plate II, hosting the loop the
+       product actually runs: a trigger Memo found on its own, one
+       question it asks about it, the multi-action draft that answer
+       becomes, and the write-back with an Undo on it. The three
+       `.phase` blocks share one grid cell and cross-fade — see the
+       animated-demo section below for the timing. */
+    .webapp-demo { min-height: 30rem; }
+    .webapp-demo .web-main { display: grid; padding: 1.3rem 1.6rem 1.5rem; }
+    .ap-sub {
+      font-size: 0.76rem;
+      color: var(--ink-faint);
+      margin-top: 0.15rem;
+    }
+    .ap-body {
+      position: relative;
+      display: grid;
+      align-content: start;
+    }
+    .ap-body .phase { padding: 0; gap: 0.8rem; }
+
+    .ap-label {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .ap-label .n {
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 400;
+      color: var(--ink-faint);
+      font-size: 0.68rem;
+    }
+
+    .ap-card {
+      border: 1px solid var(--rule-soft);
+      border-radius: 6px;
+      background: var(--surface);
+      padding: 0.95rem 1.05rem 1rem;
+      box-shadow: 0 1px 2px 0 rgb(19 28 24 / 0.05);
+    }
+    .ap-card + .ap-card { margin-top: 0.6rem; }
+    .ap-card h5 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.02rem;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .ap-card p {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      margin-top: 0.3rem;
+    }
+    /* Provenance. Every surfaced fact carries its source in the product;
+       a rep who can't tell why they're being asked can't calibrate trust. */
+    .ap-why {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.6rem;
+      font-size: 0.68rem;
+      color: var(--ink-mute);
+      background: var(--paper-card);
+      border: 1px solid var(--rule-soft);
+      border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+    }
+    .ap-why strong { font-weight: 600; color: var(--ink-soft); }
+
+    /* The ask: one question a day, answerable by voice from the card. */
+    .ap-ask {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 0.45rem;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+    .ap-ask .field {
+      border: 1px solid var(--rule-soft);
+      background: var(--paper);
+      border-radius: 5px;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+    }
+    .ap-ask .field.typed { color: var(--ink); background: var(--surface); }
+    .ap-mic {
+      width: 30px; height: 30px;
+      border-radius: 999px;
+      border: 1px solid var(--paper-deep);
+      background: var(--paper-warm);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .ap-btn {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.42rem 0.85rem;
+      border-radius: 5px;
+      border: 1px solid var(--rule-soft);
+      background: var(--surface);
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+    .ap-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .ap-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.85rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .ap-hint { font-size: 0.7rem; color: var(--ink-faint); }
+
+    /* First person, always — the product never narrates itself in the
+       third person, so neither does a screenshot of it. */
+    .ap-thinking {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.7rem;
+    }
+    .ap-thinking .thinking-dots span { background: var(--accent); }
+
+    .ap-prop-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-family: var(--sans);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--ink);
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .ap-prop-head .badge {
+      margin-left: auto;
+      font-weight: 500;
+      font-size: 0.66rem;
+      color: var(--ink-mute);
+      background: var(--paper-card);
+      border-radius: 3px;
+      padding: 0.12rem 0.4rem;
+    }
+    /* The one bounded level-3 crossing: additive actions are already
+       done when the card opens, each with an Undo; everything that could
+       take something away still waits. Two headings, one gate. */
+    .ap-split {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 0.7rem 0 0.15rem;
+    }
+    .ap-row {
+      display: grid;
+      grid-template-columns: 15px 1fr auto;
+      gap: 0.55rem;
+      align-items: start;
+      padding: 0.42rem 0;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--ink-soft);
+      border-top: 1px solid var(--rule-soft);
+    }
+    .ap-split + .ap-row { border-top: 0; }
+    .ap-row strong { color: var(--ink); font-weight: 600; }
+    .ap-row .meta { display: block; color: var(--ink-faint); font-size: 0.74rem; }
+    .ap-box {
+      width: 14px; height: 14px;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      margin-top: 3px;
+      background: var(--surface);
+    }
+    .ap-box.on {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--on-primary);
+      display: grid;
+      place-items: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+    }
+    .ap-box.on::before { content: "\2713"; }
+    .ap-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-mute);
+      background: var(--paper-card);
+      border-radius: 3px;
+      padding: 0.12rem 0.4rem;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .ap-undo {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .ap-sent {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--sans);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--success);
+      background: var(--success-soft);
+      border-radius: 5px;
+      padding: 0.4rem 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+    .ap-links {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .ap-links .mock-link {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      border: 1px solid var(--rule-soft);
+      background: var(--surface);
+      border-radius: 4px;
+      padding: 0.25rem 0.55rem;
+    }
+    .ap-links .mock-link .arrow { color: var(--accent); }
 
     /* ── Integrations ─────────────────────────────────────────── */
     .integrations-block {
@@ -1156,7 +1382,10 @@
       gap: 3rem;
       grid-template-columns: 1fr;
     }
-    @media (min-width: 56rem) { .integrations-block { grid-template-columns: 1fr 1fr; gap: 4.5rem; } }
+    /* Stacked rather than side-by-side: ten connectors divide evenly into
+       five columns across the full measure, where a half-width column left
+       Granola orphaned on a fourth row. */
+    @media (min-width: 56rem) { .integrations-block { gap: 3.5rem; } }
     .integrations-block h4 {
       font-family: var(--sans);
       font-size: 0.7rem;
@@ -1166,7 +1395,7 @@
       font-weight: 500;
       margin-bottom: 1.4rem;
     }
-    .integrations-block .coming-h4 { color: var(--accent-soft); }
+    .integrations-block .coming-h4 { color: var(--ink-mute); }
     .iconrow {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -1175,6 +1404,8 @@
       border-left: 1px solid var(--rule);
     }
     @media (min-width: 36rem) { .iconrow { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 56rem) { .iconrow--now { grid-template-columns: repeat(5, 1fr); } }
+    .iconrow--soon { max-width: 34rem; }
     .iconcell {
       border-right: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
@@ -1228,12 +1459,6 @@
     .colophon a:hover { color: var(--accent); }
 
     /* ── Animated 3-phase demo ────────────────────────────────── */
-    .demo-body {
-      position: relative;
-      display: grid;
-      flex: 1;
-      padding: 0;
-    }
     /* All phases share one grid cell so they cross-fade on top of each other,
        while the cell auto-sizes to the tallest phase. This keeps the proposal
        panel from spilling out the bottom and overlapping the composer below. */
@@ -1261,23 +1486,6 @@
     }
 
     /* Phase 1 — transcript arrives, thinking dots */
-    .thinking {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      padding-left: 36px;
-      font-size: 0.78rem;
-      color: #1d9bd1;
-      font-weight: 700;
-      margin-top: 0.2rem;
-    }
-    .thinking::before {
-      content: "";
-      display: inline-block;
-      width: 18px; height: 1px;
-      background: #4a4d50;
-      vertical-align: 4px;
-    }
     .thinking-dots {
       display: inline-flex;
       gap: 4px;
@@ -1296,275 +1504,13 @@
       35%           { opacity: 1;    transform: translateY(-2px); }
     }
 
-    /* Phase 2 — pulsing Upload button */
-    .phase-2 .sw-actbtn.primary {
+    /* Phase 2 — the approve button asks for the tap */
+    .phase-2 .ap-btn.primary {
       animation: pulseGlow 2.4s infinite ease-in-out;
       animation-delay: 5.2s;
     }
     @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 122, 90, 0.0); }
-      50%      { box-shadow: 0 0 0 4px rgba(0, 122, 90, 0.35); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(15, 90, 65, 0); }
+      50%      { box-shadow: 0 0 0 4px rgba(15, 90, 65, 0.28); }
     }
 
-    /* Phase 3 — two-stage: uploading (active) → synced (with links) */
-    .up-stack {
-      position: relative;
-      margin-top: 0.65rem;
-      border: 1px solid #2c2d30;
-      border-left: 3px solid #007a5a;
-      background: #1f2a23;
-      padding: 0.95rem 1.05rem 1rem;
-      border-radius: 0 4px 4px 0;
-      min-height: 19.5rem;
-    }
-    .up-part-A, .up-part-B {
-      position: absolute;
-      top: 0.95rem;
-      left: 1.05rem;
-      right: 1.05rem;
-      bottom: 1rem;
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-    }
-    .up-part-A { animation: partA 12s infinite 8s; }
-    .up-part-B { animation: partB 12s infinite 8s; }
-    @keyframes partA {
-      0%, 7%   { opacity: 0; transform: translateY(4px); }
-      10%      { opacity: 1; transform: translateY(0); }
-      18%      { opacity: 1; transform: translateY(0); }
-      21%      { opacity: 0; transform: translateY(-2px); }
-      100%     { opacity: 0; transform: translateY(-2px); }
-    }
-    @keyframes partB {
-      0%, 19%  { opacity: 0; transform: translateY(4px); }
-      22%      { opacity: 1; transform: translateY(0); }
-      28%      { opacity: 1; transform: translateY(0); }
-      31%      { opacity: 0; transform: translateY(-2px); }
-      100%     { opacity: 0; transform: translateY(-2px); }
-    }
-
-    .up-header {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-size: 0.86rem;
-      color: #d1d2d3;
-      margin-bottom: 0.55rem;
-    }
-    .up-header strong { color: #fff; font-weight: 700; }
-    .up-spinner-large, .up-item-uploading .spinner {
-      border: 2px solid rgba(255,255,255,0.15);
-      border-top-color: var(--accent-soft);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      flex-shrink: 0;
-    }
-    .up-spinner-large { width: 16px; height: 16px; }
-    .up-item-uploading .spinner { width: 12px; height: 12px; margin-top: 4px; }
-    .up-check-large {
-      width: 16px; height: 16px;
-      background: #007a5a;
-      color: #fff;
-      border-radius: 3px;
-      display: grid;
-      place-items: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .upload-progress {
-      height: 3px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 9999px;
-      overflow: hidden;
-      margin-bottom: 0.55rem;
-    }
-    .upload-progress-fill {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
-      border-radius: 9999px;
-      animation: pFill 12s infinite 8s;
-    }
-    @keyframes pFill {
-      0%, 9%    { width: 0; }
-      10%       { width: 0; }
-      18%       { width: 100%; }
-      100%      { width: 100%; }
-    }
-
-    .up-list {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .up-item-uploading, .up-item-done {
-      display: grid;
-      grid-template-columns: 14px 1fr;
-      gap: 0.55rem;
-      align-items: start;
-      padding: 0.34rem 0;
-      font-size: 0.83rem;
-      line-height: 1.4;
-      color: #b0b1b2;
-    }
-    .up-item-uploading + .up-item-uploading,
-    .up-item-done + .up-item-done { border-top: 1px solid #2c2d30; }
-    .up-item-done {
-      color: #d1d2d3;
-    }
-    .up-item-done .check {
-      width: 12px; height: 12px;
-      background: #007a5a;
-      color: #fff;
-      border-radius: 2px;
-      display: grid;
-      place-items: center;
-      font-size: 0.55rem;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-    .up-item-done .check::before { content: "✓"; }
-    .up-item-uploading strong, .up-item-done strong { color: #fff; font-weight: 700; }
-    .up-item-done .meta { color: #8b8d8f; font-size: 0.76rem; }
-    .up-item-done .meta a,
-    .up-item-done .meta .mock-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.18rem;
-      color: #1d9bd1;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color 180ms;
-    }
-    .up-item-done .meta a:hover { color: #4baee0; }
-
-    .upload-links {
-      margin-top: 0.85rem;
-      padding-top: 0.7rem;
-      border-top: 1px solid #2c2d30;
-      font-size: 0.78rem;
-      color: #8b8d8f;
-      display: flex;
-      gap: 0.85rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .upload-links .label-text {
-      font-family: var(--sans);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #8b8d8f;
-      font-weight: 600;
-    }
-    .upload-links a,
-    .upload-links .mock-link {
-      color: #d1d2d3;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.3rem 0.65rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid #2c2d30;
-      border-radius: 3px;
-      transition: border-color 180ms, color 180ms, background 180ms;
-    }
-    .upload-links a:hover {
-      color: #fff;
-      border-color: #4a4d50;
-      background: rgba(255,255,255,0.08);
-    }
-    .upload-links a .arrow,
-    .upload-links .mock-link .arrow {
-      color: var(--accent-soft);
-      font-size: 0.72rem;
-    }
-
-    /* ── Demo progress (3 steps under the Slack window) ───────── */
-    .demo-progress {
-      display: grid;
-      grid-template-columns: 1fr;
-      margin-top: 1.5rem;
-      border-top: 1px solid var(--rule-soft);
-    }
-    @media (min-width: 50rem) {
-      .demo-progress { grid-template-columns: repeat(3, 1fr); }
-    }
-    .demo-step {
-      padding: 1.4rem 1.5rem;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.85rem;
-      align-items: baseline;
-      border-bottom: 1px solid var(--rule-soft);
-      position: relative;
-    }
-    @media (min-width: 50rem) {
-      .demo-step { border-bottom: 0; border-right: 1px solid var(--rule-soft); padding: 1.5rem 1.6rem; }
-      .demo-step:last-child { border-right: 0; }
-    }
-    .demo-step::before {
-      content: "";
-      position: absolute;
-      top: -1px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 320ms ease;
-    }
-    .demo-step:nth-child(1)::before { animation: stepBar 12s infinite 0s; }
-    .demo-step:nth-child(2)::before { animation: stepBar 12s infinite 4s; }
-    .demo-step:nth-child(3)::before { animation: stepBar 12s infinite 8s; }
-    @keyframes stepBar {
-      0%        { width: 0; }
-      4%        { width: 0; }
-      9%        { width: 100%; }
-      29%       { width: 100%; }
-      33%       { width: 0; }
-      100%      { width: 0; }
-    }
-    .demo-num {
-      font-family: var(--sans);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: var(--ink-mute);
-      transition: color 300ms ease;
-    }
-    .demo-step:nth-child(1) .demo-num { animation: numActive 12s infinite 0s; }
-    .demo-step:nth-child(2) .demo-num { animation: numActive 12s infinite 4s; }
-    .demo-step:nth-child(3) .demo-num { animation: numActive 12s infinite 8s; }
-    @keyframes numActive {
-      0%, 4%   { color: var(--ink-mute); }
-      9%, 29%  { color: var(--accent); }
-      33%, 100% { color: var(--ink-mute); }
-    }
-    .demo-step h4 {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin-bottom: 0.25rem;
-      line-height: 1.2;
-    }
-    .demo-step p {
-      font-size: 0.92rem;
-      line-height: 1.5;
-      color: var(--ink-soft);
-    }
-
-    /* ── Reduced motion ───────────────────────────────────────── */
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation-duration: 0.001s !important; animation-iteration-count: 1 !important; }
-      .phase-2 { opacity: 1; }
-      .phase-1, .phase-3 { display: none; }
-      .up-part-A { display: none; }
-      .up-part-B { opacity: 1; }
-    }

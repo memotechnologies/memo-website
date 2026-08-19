@@ -73,7 +73,9 @@
 
 .legal-shell strong { font-weight: 600; }
 
-.legal-shell a { border-bottom: 1px solid var(--accent-soft); }
+/* A tint, not a bright green: `--accent-soft` was #4ea886, which the app
+   dropped, and a mint underline on bone reads as a highlighter. */
+.legal-shell a { border-bottom: 1px solid var(--paper-deep); }
 .legal-shell a:hover { border-bottom-color: var(--accent); }
 
 /* Callout — the few statements a reader should not be able to miss. */

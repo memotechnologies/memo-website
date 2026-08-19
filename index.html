@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memo &ndash; Your AI Sales Worker</title>
-  <meta name="description" content="Memo is your AI sales worker. It turns your customer touchpoints into action &mdash; clean CRM updates, drafted follow-ups, and the next steps that follow. Channel-agnostic, by design.">
+  <title>Memo &ndash; A Proactive AI Sales Worker</title>
+  <meta name="description" content="Memo is a proactive AI sales worker. It watches your calls, calendar, inbox and CRM, then has the CRM updates, follow-up emails and next meetings drafted before you ask &mdash; for one-tap approval. Works with HubSpot, Pipedrive, Attio and Dynamics 365.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='6' fill='%230e3b2e'/><text x='50' y='68' font-family='ui-serif,Georgia' font-size='60' font-weight='600' fill='%23f6f6f2' text-anchor='middle'>M</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,18 +18,18 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Memo">
   <meta property="og:url" content="https://sentmemo.com/">
-  <meta property="og:title" content="Memo &mdash; your AI sales worker">
-  <meta property="og:description" content="Turns your customer touchpoints into action &mdash; clean CRM updates, drafted follow-ups, and the next steps that follow. Channel-agnostic, by design.">
+  <meta property="og:title" content="Memo &mdash; a proactive AI sales worker">
+  <meta property="og:description" content="It doesn&rsquo;t wait to be asked. Memo notices what your deals need, then drafts the CRM updates, follow-up emails and next meetings for one-tap approval.">
   <meta property="og:image" content="https://sentmemo.com/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Memo &mdash; your AI sales worker. Turns your customer touchpoints into action.">
+  <meta property="og:image:alt" content="Memo &mdash; a proactive AI sales worker. It doesn&rsquo;t wait to be asked.">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Memo &mdash; your AI sales worker">
-  <meta name="twitter:description" content="Turns your customer touchpoints into action &mdash; clean CRM updates, drafted follow-ups, and the next steps that follow.">
+  <meta name="twitter:title" content="Memo &mdash; a proactive AI sales worker">
+  <meta name="twitter:description" content="It doesn&rsquo;t wait to be asked. Memo notices what your deals need, then drafts the CRM updates, follow-ups and next meetings for one-tap approval.">
   <meta name="twitter:image" content="https://sentmemo.com/og.png">
 
   <meta name="theme-color" content="#f6f6f2">
@@ -53,9 +53,9 @@
         "@id": "https://sentmemo.com/#product",
         "name": "Memo",
         "applicationCategory": "BusinessApplication",
-        "applicationSubCategory": "Sales Productivity / AI Sales Worker",
+        "applicationSubCategory": "Sales Productivity / Proactive AI Sales Worker",
         "operatingSystem": "Web, Slack",
-        "description": "An AI sales worker that turns your customer touchpoints into action — CRM updates, drafted follow-ups, and the next steps that should follow. Works with HubSpot, Pipedrive, Slack, and meeting note-takers like Fireflies, Gong, and Granola.",
+        "description": "A proactive AI sales worker for account executives. It monitors the CRM, calendar and inbox, then drafts the CRM updates, follow-up emails, tasks and calendar invites each touchpoint implies — for one-tap approval, with an undo on anything it created. Works with HubSpot, Pipedrive, Attio, Dynamics 365, Google Workspace, Slack, and note-takers including Fireflies, Gong and Granola.",
         "url": "https://sentmemo.com/",
         "publisher": { "@id": "https://sentmemo.com/#organization" }
       },
@@ -63,7 +63,7 @@
         "@type": "WebPage",
         "@id": "https://sentmemo.com/#webpage",
         "url": "https://sentmemo.com/",
-        "name": "Memo — your AI sales worker",
+        "name": "Memo — a proactive AI sales worker",
         "isPartOf": { "@id": "https://sentmemo.com/#organization" },
         "primaryImageOfPage": "https://sentmemo.com/og.png",
         "about": { "@id": "https://sentmemo.com/#product" }
@@ -79,6 +79,7 @@
     <div class="container masthead-row">
       <a href="/" class="wordmark" aria-label="Memo home">Memo<span class="bar" aria-hidden="true"></span></a>
       <nav class="masthead-meta" aria-label="Primary">
+        <a href="#why" class="nav">Why Memo</a>
         <a href="#how" class="nav">How it works</a>
         <a href="https://app.sentmemo.com" class="nav login">Log in</a>
         <a href="mailto:henri@sentmemo.com?subject=Memo" class="btn btn-primary btn-sm">Get in touch</a>
@@ -93,9 +94,11 @@
     <div class="container">
       <div class="hero-stage">
 
+        <!-- One touchpoint in, three artefacts out — the wedge, stated in
+             pictures before the headline states it in words. -->
         <div class="float-card transcript" aria-hidden="true">
-          <div class="label"><img class="logo" src="logos/fireflies.svg" alt="Fireflies">Q2 Expansion Discussion</div>
-          <div class="meta">Halden &middot; 47 min &middot; transcript ready</div>
+          <div class="label"><span class="pip">&#9679;</span>Voice note &middot; 38 sec</div>
+          <div class="meta">Held the mic and talked, walking to the car</div>
         </div>
         <div class="float-card proposal" aria-hidden="true">
           <div class="label"><img class="logo" src="logos/hubspot-color.svg" alt="HubSpot">Update deal: Halden &mdash; NA Expansion</div>
@@ -104,267 +107,202 @@
         </div>
         <div class="float-card email" aria-hidden="true">
           <div class="label"><img class="logo" src="logos/gmail.svg" alt="Gmail">Email draft to Mira Halvorsen</div>
-          <div class="meta">Recap, proposal, next steps &middot; <strong>ready</strong></div>
+          <div class="meta">In your own greeting and sign-off &middot; <strong>ready</strong></div>
         </div>
         <div class="float-card calendar" aria-hidden="true">
           <div class="label"><img class="logo" src="logos/googlecalendar-color.svg" alt="Google Calendar">Pricing &amp; legal review</div>
           <div class="meta">Wed 10:00 &middot; 30 min</div>
         </div>
 
-        <div class="smallcaps eyebrow">An AI sales worker, not another tool</div>
-        <h1 class="hed">Your AI sales worker. <em>Turns your customer touchpoints into action.</em></h1>
+        <div class="smallcaps eyebrow">A proactive AI sales worker</div>
+        <h1 class="hed">Your AI sales worker. <em>It doesn&rsquo;t wait to be asked.</em></h1>
         <p class="deck">
-          Every call, email, and meeting is a touchpoint &mdash; and every one of them leaves work behind. Memo picks it up across every channel you already work in. Preps your meetings, updates the CRM, drafts the follow-ups, closes the tasks. You approve in one tap.
+          Memo watches the calls, calendar, inbox and CRM your team already works in. It notices the deal that went quiet, works out what it&rsquo;s missing, and has the CRM update, the follow-up email and the next meeting drafted before you open it. You approve in one tap.
         </p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" href="mailto:henri@sentmemo.com?subject=Memo">Get in touch <span class="arrow">→</span></a>
         </div>
+        <p class="hero-trust">
+          Not a note-taker and not an AI SDR. It works the deals you already have &mdash; and <em>nothing goes out without your approval.</em>
+        </p>
       </div>
 
-      <!-- Plate I — full Slack window with thread view -->
-      <figure class="plate" aria-label="A Memo thread in Slack: a Halden meeting transcript arrives, Memo proposes the CRM updates, follow-up email, and calendar invite for the rep to upload.">
+      <!-- Plate I — the Workspace inbox, where proactive work lands -->
+      <figure class="plate" aria-label="Memo's Workspace inbox: Memo notices a call that left no note, asks the one thing it cannot read, drafts six actions from the one-line answer, and writes them to HubSpot with an Undo on each.">
         <div class="plate-frame">
-          <div class="slack-window">
-            <div class="sw-topbar">
-              <div class="sw-traffic" aria-hidden="true"><span></span><span></span><span></span></div>
-              <div class="sw-search">Search Memo Technologies</div>
-            </div>
-
-            <aside class="sw-side" aria-hidden="true">
-              <div class="sw-workspace">Memo Technologies</div>
-              <ul class="sw-nav">
-                <li class="sw-item">Threads</li>
-                <li class="sw-item">Huddles</li>
-                <li class="sw-item">Drafts &amp; sent</li>
-                <li class="sw-item">Directories</li>
-              </ul>
-              <div class="sw-section-label">Channels</div>
-              <ul class="sw-channels">
-                <li class="sw-channel"><span class="hash">#</span>general</li>
-                <li class="sw-channel"><span class="hash">#</span>random</li>
-                <li class="sw-channel"><span class="hash">#</span>sales</li>
-              </ul>
-              <div class="sw-section-label">Direct messages</div>
-              <ul class="sw-channels">
-                <li class="sw-item active">Memo</li>
-              </ul>
-              <div class="sw-add">+ Add apps</div>
+          <div class="webapp webapp-demo">
+            <aside class="web-side" aria-hidden="true">
+              <div class="web-org">Memo<span class="org-sub">Memo Technologies</span></div>
+              <nav class="web-nav">
+                <a>Today</a>
+                <a>Chat</a>
+                <a class="active">Workspace</a>
+                <a>Routines</a>
+                <a>Settings</a>
+              </nav>
             </aside>
 
-            <main class="sw-main">
-              <div class="sw-head">
-                <span>Memo</span>
-                <span class="crumb">Direct message</span>
-                <span class="close">×</span>
+            <main class="web-main">
+              <div class="web-page-head">
+                <div>
+                  <h3>Workspace</h3>
+                  <div class="ap-sub">What I brought you &mdash; most pressing first</div>
+                </div>
+                <span class="web-refresh">Updated 4m ago <span class="btn-mini">Refresh</span></span>
               </div>
 
-              <div class="sw-body demo-body">
+              <div class="ap-body">
 
-                <!-- Phase 1 — transcript arrives, Memo starts reasoning -->
+                <!-- Phase 1 — Memo noticed on its own, and asked the one thing
+                     it had no way to read. Answered by voice from the card. -->
                 <div class="phase phase-1" aria-hidden="true">
-                  <div class="sw-msg">
-                    <div class="sw-avatar">M</div>
-                    <div>
-                      <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">just now</span></div>
-                      <div class="sw-attached">
-                        <svg class="sw-attached-icon" viewBox="0 0 14 16" width="12" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 1.5h6l3 3V14a.5.5 0 01-.5.5h-9a.5.5 0 01-.5-.5V2a.5.5 0 01.5-.5z"/><path d="M8.5 1.5V4a.5.5 0 00.5.5h2.5"/><path d="M4.5 8h5M4.5 10.5h5M4.5 6h2.5"/></svg>
-                        <strong>Fireflies transcript:</strong> <em>Q2 Expansion Discussion &mdash; Halden</em><br>
-                        Mon, May 4 &middot; 47 min<br>
-                        Attendees: You, Mira Halvorsen
-                      </div>
-                      <div class="thinking">
-                        <span class="thinking-dots"><span></span><span></span><span></span></span>
-                        Memo is reasoning&hellip;
-                      </div>
+                  <div class="ap-label">What I noticed</div>
+                  <div class="ap-card">
+                    <h5>Your 11:00 with Mira Halvorsen ran 47 minutes, and nothing recorded it.</h5>
+                    <p>Halden has sat in <em>Qualified to buy</em> for 23 days with no economic buyer named on the deal. Tell me one thing and I&rsquo;ll write the rest.</p>
+                    <div class="ap-why"><strong>Why you&rsquo;re seeing this</strong> &middot; call logged in HubSpot &middot; 23d in Qualified to buy</div>
+                    <div class="ap-ask">
+                      <span class="field typed">Mira&rsquo;s CFO signs it off &mdash; pricing review Wednesday, she wants legal on it</span>
+                      <span class="ap-mic" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="5.5" y="1.5" width="5" height="8" rx="2.5"/><path d="M3 8a5 5 0 0010 0"/><path d="M8 13v1.5"/></svg></span>
+                      <span class="ap-btn">Send</span>
+                    </div>
+                    <div class="ap-thinking">
+                      <span class="thinking-dots"><span></span><span></span><span></span></span>
+                      Thinking&hellip;
                     </div>
                   </div>
                 </div>
 
-                <!-- Phase 2 — Memo proposes -->
+                <!-- Phase 2 — one answer, six actions. The additive half is
+                     already done and undoable; the rest waits for a tap. -->
                 <div class="phase phase-2" aria-hidden="true">
-                  <div class="sw-msg">
-                    <div class="sw-avatar">M</div>
-                    <div>
-                      <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">just now</span></div>
+                  <div class="ap-label">Your call <span class="n">&middot; drafted from one line, after your 11:00</span></div>
+                  <div class="ap-card">
+                    <div class="ap-prop-head">Proposed changes<span class="badge">6 actions</span></div>
 
-                      <div class="sw-text">
-                        Two Mira Halvorsens and three Halden companies &mdash; let me dig deeper.
-                      </div>
-                      <div class="sw-text">
-                        The first Halden company has Mira linked and an open deal. There&rsquo;s also an overdue task &ldquo;Draft expansion proposal&rdquo; &mdash; this meeting relates to it.
-                      </div>
-                      <div class="sw-text">
-                        Wednesday is open for the follow-up. Picking 10:00. Proposing the actions now.
-                      </div>
+                    <div class="ap-split">I&rsquo;ve done this</div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Logged meeting:</strong> Mira Halvorsen @ Halden
+                        <span class="meta">47 min &middot; CFO is the signer &middot; legal review requested</span>
+                      </span>
+                      <span class="ap-undo">Undo</span>
+                    </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Added contact:</strong> Ingrid Solheim &mdash; CFO
+                        <span class="meta">Linked to Halden &middot; economic buyer</span>
+                      </span>
+                      <span class="ap-undo">Undo</span>
+                    </div>
 
-                      <div class="sw-proposal" role="group" aria-label="Proposed actions">
-                        <div class="sw-proposal-head">What will be created<span class="badge">6 actions</span></div>
+                    <div class="ap-split">I&rsquo;d like to do this</div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Update deal:</strong> Halden &mdash; NA Expansion
+                        <span class="meta">Stage: Qualified to buy &middot; $50,000 &middot; close date +3w</span>
+                      </span>
+                      <span class="ap-tag">deal update</span>
+                    </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Close task:</strong> Draft expansion proposal
+                        <span class="meta">4 days overdue &mdash; this meeting was it</span>
+                      </span>
+                      <span class="ap-tag">task</span>
+                    </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Email draft:</strong> recap and pricing to Mira
+                        <span class="meta">Your greeting, your sign-off, your language</span>
+                      </span>
+                      <span class="ap-tag">email draft</span>
+                    </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Calendar invite:</strong> Pricing &amp; legal review
+                        <span class="meta">Wed 10:00 &middot; 30 min &middot; checked against your week</span>
+                      </span>
+                      <span class="ap-tag">emails 2 guests</span>
+                    </div>
 
-                        <div class="sw-checkrow">
-                          <span class="sw-check" aria-hidden="true"></span>
-                          <span class="label"><strong>Update contact:</strong> Mira Halvorsen
-                            <span class="meta">mira.halvorsen@halden.com</span>
-                          </span>
-                        </div>
-                        <div class="sw-checkrow">
-                          <span class="sw-check" aria-hidden="true"></span>
-                          <span class="label"><strong>Log meeting:</strong> Mira Halvorsen @ Halden
-                            <span class="meta">2026-05-04 &middot; Positive &mdash; EMEA pilot agreed</span>
-                          </span>
-                        </div>
-                        <div class="sw-checkrow">
-                          <span class="sw-check" aria-hidden="true"></span>
-                          <span class="label"><strong>Update deal:</strong> Halden &mdash; NA Team Expansion
-                            <span class="meta">Stage: Qualified to buy &middot; $50,000</span>
-                          </span>
-                        </div>
-                        <div class="sw-checkrow">
-                          <span class="sw-check" aria-hidden="true"></span>
-                          <span class="label"><strong>Update task:</strong> Draft expansion proposal
-                            <span class="meta">Due in 1 day &middot; Priority HIGH</span>
-                          </span>
-                        </div>
-                        <div class="sw-checkrow">
-                          <span class="sw-check" aria-hidden="true"></span>
-                          <span class="label"><strong>Email draft:</strong> Follow-up to Mira Halvorsen
-                            <span class="meta">Recap, proposal, next steps</span>
-                          </span>
-                        </div>
-                        <div class="sw-checkrow">
-                          <span class="sw-check" aria-hidden="true"></span>
-                          <span class="label"><strong>Calendar invite:</strong> Pricing &amp; legal review
-                            <span class="meta">Wed 10:00 &middot; 30 min &middot; You, Mira</span>
-                          </span>
-                        </div>
-
-                        <div class="sw-proposal-actions">
-                          <span class="sw-actbtn primary">Upload</span>
-                          <span class="sw-actbtn ghost">Cancel</span>
-                        </div>
-                      </div>
+                    <div class="ap-actions">
+                      <span class="ap-btn primary">Approve 4 HubSpot updates</span>
+                      <span class="ap-btn">Edit</span>
+                      <span class="ap-hint">Untick anything. Nothing sends until you say so.</span>
                     </div>
                   </div>
                 </div>
 
-                <!-- Phase 3 — two-stage: uploading → synced + links -->
+                <!-- Phase 3 — written, reversible, and one correction wiser -->
                 <div class="phase phase-3" aria-hidden="true">
-                  <div class="sw-msg">
-                    <div class="sw-avatar">M</div>
-                    <div>
-                      <div class="sw-meta"><span class="name">Memo</span><span class="bot-tag">APP</span><span class="time">just now</span></div>
+                  <div class="ap-label">Done</div>
+                  <div class="ap-card">
+                    <div class="ap-sent"><span aria-hidden="true">✓</span> In HubSpot &mdash; 6 actions, 11 seconds</div>
 
-                      <div class="up-stack">
-                        <!-- Stage A: actively uploading -->
-                        <div class="up-part-A" aria-hidden="true">
-                          <div class="up-header">
-                            <span class="up-spinner-large" aria-hidden="true"></span>
-                            <span><strong>Uploading 6 actions&hellip;</strong> to HubSpot, Gmail, and Calendar.</span>
-                          </div>
-                          <div class="upload-progress" aria-hidden="true"><div class="upload-progress-fill"></div></div>
-                          <div class="up-list">
-                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Updating contact&hellip; <strong>Mira Halvorsen</strong></span></div>
-                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Logging meeting&hellip; <strong>Q2 Expansion Discussion</strong></span></div>
-                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Updating deal&hellip; <strong>Halden &mdash; NA Team Expansion</strong></span></div>
-                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Closing task&hellip; <strong>Draft expansion proposal</strong></span></div>
-                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Drafting email&hellip; <strong>Follow-up to Mira</strong></span></div>
-                            <div class="up-item-uploading"><span class="spinner" aria-hidden="true"></span><span>Sending invite&hellip; <strong>Pricing &amp; legal review</strong></span></div>
-                          </div>
-                        </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Meeting logged</strong> on the Halden timeline
+                        <span class="meta">Mira Halvorsen &middot; Ingrid Solheim added as CFO</span>
+                      </span>
+                      <span class="ap-undo">Undo</span>
+                    </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Deal moved</strong> to Qualified to buy &mdash; $52,000
+                        <span class="meta">You changed the amount from $50,000</span>
+                      </span>
+                    </div>
+                    <div class="ap-row">
+                      <span class="ap-box on" aria-hidden="true"></span>
+                      <span><strong>Task closed</strong> &middot; <strong>draft waiting in Gmail</strong> &middot; <strong>invite sent</strong>
+                        <span class="meta">Wed 10:00 &mdash; Mira and legal accepted</span>
+                      </span>
+                    </div>
 
-                        <!-- Stage B: done, with deeplinks -->
-                        <div class="up-part-B" aria-hidden="true">
-                          <div class="up-header">
-                            <span class="up-check-large" aria-hidden="true">✓</span>
-                            <span><strong>Synced &mdash; 6 actions in 1.8s.</strong> HubSpot, Gmail, and Calendar are up to date.</span>
-                          </div>
-                          <div class="up-list">
-                            <div class="up-item-done">
-                              <span class="check" aria-hidden="true"></span>
-                              <span><strong>Updated contact:</strong> Mira Halvorsen
-                                <span class="meta">&middot; <span class="mock-link" aria-hidden="true">HubSpot ↗</span></span>
-                              </span>
-                            </div>
-                            <div class="up-item-done">
-                              <span class="check" aria-hidden="true"></span>
-                              <span><strong>Logged meeting:</strong> Q2 Expansion Discussion
-                                <span class="meta">linked to deal &middot; <span class="mock-link" aria-hidden="true">HubSpot ↗</span></span>
-                              </span>
-                            </div>
-                            <div class="up-item-done">
-                              <span class="check" aria-hidden="true"></span>
-                              <span><strong>Updated deal:</strong> Halden &mdash; NA Team Expansion
-                                <span class="meta">Qualified to buy &middot; $50k &middot; <span class="mock-link" aria-hidden="true">HubSpot ↗</span></span>
-                              </span>
-                            </div>
-                            <div class="up-item-done">
-                              <span class="check" aria-hidden="true"></span>
-                              <span><strong>Closed task:</strong> Draft expansion proposal
-                                <span class="meta">marked complete &middot; <span class="mock-link" aria-hidden="true">HubSpot ↗</span></span>
-                              </span>
-                            </div>
-                            <div class="up-item-done">
-                              <span class="check" aria-hidden="true"></span>
-                              <span><strong>Drafted email:</strong> Follow-up to Mira
-                                <span class="meta">ready in Gmail &middot; <span class="mock-link" aria-hidden="true">Open draft ↗</span></span>
-                              </span>
-                            </div>
-                            <div class="up-item-done">
-                              <span class="check" aria-hidden="true"></span>
-                              <span><strong>Sent invite:</strong> Pricing &amp; legal review
-                                <span class="meta">Wed 10:00 &middot; <span class="mock-link" aria-hidden="true">Google Calendar ↗</span></span>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="upload-links">
-                            <span class="label-text">Open in</span>
-                            <span class="mock-link" aria-hidden="true"><strong>HubSpot</strong> <span class="arrow">↗</span></span>
-                            <span class="mock-link" aria-hidden="true"><strong>Gmail</strong> <span class="arrow">↗</span></span>
-                            <span class="mock-link" aria-hidden="true"><strong>Google Calendar</strong> <span class="arrow">↗</span></span>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="ap-links">
+                      <span class="mock-link">Halden deal <span class="arrow">↗</span></span>
+                      <span class="mock-link">Gmail draft <span class="arrow">↗</span></span>
+                      <span class="mock-link">Calendar <span class="arrow">↗</span></span>
+                    </div>
+                    <div class="ap-actions">
+                      <span class="ap-hint">Noted: you price expansions off the contract figure, not the quote. I&rsquo;ll use that next time.</span>
                     </div>
                   </div>
                 </div>
 
-              </div>
-
-              <div class="sw-composer" aria-hidden="true">
-                <div class="sw-composer-toolbar">
-                  <span>B</span><span><em>I</em></span><span>U</span><span>𝒮</span><span><svg viewBox="0 0 14 14" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8.5l3-3"/><path d="M6.5 3.6l1-1a2.4 2.4 0 113.4 3.4l-1 1"/><path d="M7.5 10.4l-1 1a2.4 2.4 0 11-3.4-3.4l1-1"/></svg></span><span>≔</span>
-                </div>
-                <div class="sw-composer-input">Reply…</div>
               </div>
             </main>
           </div>
         </div>
+
         <div class="demo-progress" aria-label="The three phases the demo walks through">
           <div class="demo-step">
             <span class="demo-num">01</span>
             <div>
-              <h4>Talk to Memo.</h4>
-              <p>Notes, a meeting, a transcript &mdash; whatever your team already has. Memo picks it up.</p>
+              <h4>Memo notices.</h4>
+              <p>A call that left no note, a deal gone quiet, a meeting someone declined. Nobody has to hand it anything.</p>
             </div>
           </div>
           <div class="demo-step">
             <span class="demo-num">02</span>
             <div>
-              <h4>Memo proposes.</h4>
-              <p>Reasons through the CRM, drafts every action and the next step. In plain English.</p>
+              <h4>Memo drafts.</h4>
+              <p>It reads the CRM, your calendar and the thread &mdash; then writes every action the touchpoint implies, in plain English.</p>
             </div>
           </div>
           <div class="demo-step">
             <span class="demo-num">03</span>
             <div>
-              <h4>You approve.</h4>
-              <p>Tick what you want, untick what you don&rsquo;t. One tap to upload &mdash; everywhere at once.</p>
+              <h4>You approve. It learns.</h4>
+              <p>Tick, untick, edit. One tap writes it everywhere at once &mdash; and every edit you make is kept and read back.</p>
             </div>
           </div>
         </div>
 
         <figcaption class="plate-caption" style="margin-top: 1.25rem;">
           <span class="figure">Plate&nbsp;I &middot; Live demo</span>
-          <span class="text">A meeting transcript arrives. Memo proposes the CRM writes, the email, and the follow-up &mdash; the rep ticks and uploads.</span>
+          <span class="text">The Workspace inbox &mdash; a call that left no transcript, one question, six actions, one tap.</span>
         </figcaption>
       </figure>
     </div>
@@ -374,26 +312,26 @@
   <section class="bay">
     <div class="container">
       <div class="smallcaps section-eyebrow">The problem</div>
-      <h2 class="head">Your team is losing winnable deals to admin work.</h2>
+      <h2 class="head">Every other tool waits for the work to <em>arrive in a pattern.</em></h2>
       <p class="lede">
-        Sales teams already have notes and transcripts. But the notes sit in notebooks, the transcripts sit in Fireflies, summaries are messy, the CRM still needs manual updating &mdash; and the next steps still fall on the rep.
+        A booked call. A recorded meeting. A clean CRM record. Most of a rep&rsquo;s week arrives in none of those shapes &mdash; it&rsquo;s a phone call from the car, five minutes in a corridor, a reply on LinkedIn. The pattern-shaped tools miss it, and the rep pays for it twice: once in admin, and once in the deal.
       </p>
 
       <div class="problem-grid">
         <article class="pcard">
           <span class="tag">i.</span>
-          <h3>The CRM stays empty.</h3>
-          <p>Notes don&rsquo;t fill fields. Reps update the CRM manually, or don&rsquo;t. Pipeline data can&rsquo;t be trusted.</p>
+          <h3>The touchpoint leaves no trace.</h3>
+          <p>Closing takes one to five conversations, most of them on the phone &mdash; and most teams run no note-taker at all. There is no transcript to summarise, so there is nothing for the rest of the category to work from.</p>
         </article>
         <article class="pcard">
           <span class="tag">ii.</span>
-          <h3>Next steps get forgotten.</h3>
-          <p>Follow-up emails and calendar invites that should go out after every call go out late, or never.</p>
+          <h3>So the CRM stays empty.</h3>
+          <p>Notes don&rsquo;t fill fields. Reps update the CRM by hand, late, or never &mdash; and the pipeline everyone forecasts from is only ever as good as what somebody remembered to type.</p>
         </article>
         <article class="pcard">
           <span class="tag">iii.</span>
-          <h3>Hours lost every week.</h3>
-          <p>Even with a note-taker, reps spend 5&ndash;10 hours a week on post-call admin instead of selling.</p>
+          <h3>And the follow-up falls on the rep.</h3>
+          <p>The recap, the invite, the task, the nudge two weeks later. All of it lands on the person who just spent an hour actually selling &mdash; usually at nine in the evening.</p>
         </article>
       </div>
     </div>
@@ -405,38 +343,71 @@
       <div class="smallcaps section-eyebrow">By the numbers</div>
       <h2 class="head">The cost is deals, <em>not just hours.</em></h2>
       <p class="lede">
-        Every hour spent on admin is an hour not spent on the deal you just had a great call with. Four numbers on the table.
+        Four numbers. We put a price on exactly one of them, and deliberately the small one &mdash; the slice of the week Memo actually works on, not the whole of it.
       </p>
 
       <div class="stats" role="list">
         <div class="stat-row" role="listitem">
-          <div class="num">70<span style="font-size: 0.65em;">%</span></div>
-          <div class="label">of rep time goes to non-selling work.</div>
-          <div class="gloss">Admin, CRM updates, internal email. Only 30% of a rep&rsquo;s week is actual selling.</div>
+          <div class="num"><span style="font-size: 0.68em; vertical-align: 0.06em; margin-right: 0.04em;">€</span>11,600</div>
+          <div class="label">a year, per rep, on the admin slice alone.</div>
+          <div class="gloss">5.5 hours a week &mdash; meeting notes and CRM entry (2.5), hunting context before calls (2.0), follow-up admin (1.0) &mdash; at €47/h fully loaded across 45 selling weeks. Band €8.5k&ndash;€16k.</div>
         </div>
         <div class="stat-row" role="listitem">
-          <div class="num">5&ndash;10<span style="font-size: 0.55em; margin-left: 0.05em;">h</span></div>
-          <div class="label">lost per rep, every week.</div>
-          <div class="gloss">Wasted on manual CRM entry and follow-up admin that should never need a human.</div>
+          <div class="num">30<span style="font-size: 0.65em;">%</span></div>
+          <div class="label">of the week is actual selling.</div>
+          <div class="gloss">The rest is admin, CRM updates and internal email. Memo doesn&rsquo;t claim the other 70% &mdash; it doesn&rsquo;t do your prospecting research, your proposals or your internal meetings.</div>
         </div>
         <div class="stat-row" role="listitem">
           <div class="num">79<span style="font-size: 0.65em;">%</span></div>
           <div class="label">of deal data, never logged.</div>
-          <div class="gloss">It lives in a transcript, a notebook, or a memory. The pipeline runs blind.</div>
+          <div class="gloss">It lives in a transcript, a notebook, or somebody&rsquo;s memory. No euro figure attached, on purpose: this one is a decision cost, not a time cost, and it lands on the sales leader rather than the rep.</div>
         </div>
         <div class="stat-row" role="listitem">
           <div class="num">71<span style="font-size: 0.65em;">%</span></div>
           <div class="label">of hot leads, wasted.</div>
-          <div class="gloss">No follow-up, no second chance. Gone to a competitor that replied first.</div>
+          <div class="gloss">No follow-up, no second chance. Gone to whoever replied first.</div>
         </div>
       </div>
 
       <p class="citations">
-        [1] 30%: Salesforce, <em>State of Sales</em>, 6th&nbsp;Ed. 2024 (7,700+&nbsp;reps).
-        [2] 5.4h: Forrester 2023 / HubSpot 2024 <em>Sales Trends</em>.
+        [1] €47/h: €65k OTE &times; 1.22 statutory employer cost &divide; 1,688 productive hours (45 selling weeks &times; 37.5&nbsp;h).
+        [2] 30%: Salesforce, <em>State of Sales</em>, 6th&nbsp;Ed. 2024 (7,700+&nbsp;reps).
         [3] 79%: Validity, <em>State of CRM Data</em> 2025 (602&nbsp;respondents).
         [4] 71%: InsideSales / Forbes 2012 (10,000+&nbsp;companies).
       </p>
+    </div>
+  </section>
+
+  <!-- ── Why Memo ───────────────────────────────────────────── -->
+  <section class="bay" id="why" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">Why Memo</div>
+      <h2 class="head">Everyone else assumes something <em>your team doesn&rsquo;t do.</em></h2>
+      <p class="lede">
+        Not a feature grid &mdash; a list of assumptions. Each of these categories works beautifully, right up to the point where the work stops arriving in the shape it expects.
+      </p>
+
+      <div class="capability-row" style="margin-top: 3rem;">
+        <div>
+          <h4>What the alternatives take for granted</h4>
+          <ul class="caplist">
+            <li>CRM-native AI <span class="desc">Assumes the work happens inside their walls. It sprawls to Workspace, Slack and the phone.</span></li>
+            <li>Voice capture tools <span class="desc">Assumes the rep stops and dictates a memo. But capture isn&rsquo;t assembly: one memo, one field.</span></li>
+            <li>Agentic sales layers <span class="desc">Assumes the CRM already holds good data. The data never got captured in the first place.</span></li>
+            <li>AI-native CRMs <span class="desc">Assumes you&rsquo;ll replace your CRM. Nobody rips out HubSpot or Pipedrive to try a startup.</span></li>
+            <li>The one you built internally <span class="desc">Assumes whoever built it keeps maintaining it. Gartner expects 40%+ of agent projects to be scrapped by 2027.</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Where that leaves Memo</h4>
+          <ul class="caplist">
+            <li>It takes the touchpoint nobody else can use <span class="desc">A phone call, a note dictated walking to the car, a line typed between meetings. No recording, no clean input, no form.</span></li>
+            <li>One piece of context, many actions <span class="desc">The whole trick: one note becomes the CRM update, the email, the invite and the tasks that follow. That is what pilots quote back to us.</span></li>
+            <li>It glues the scattered pieces into one account picture <span class="desc">CRM, calendar, inbox and prior meetings read together, so the draft knows what the deal already knew.</span></li>
+            <li>The rep stays in the driver&rsquo;s seat <span class="desc">Priced and framed like hiring a worker, not like another seat of software &mdash; and it never acts behind your back.</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -444,23 +415,27 @@
   <section class="bay" id="how" style="padding-top: 0;">
     <div class="container">
       <div class="smallcaps section-eyebrow">How it works</div>
-      <h2 class="head">From every touchpoint <em>to action.</em></h2>
+      <h2 class="head">Monitors. Thinks. Does the work. <em>Learns.</em></h2>
       <p class="lede">
-        Touchpoints in. Everything else out. Memo updates the CRM the way a human would, drafts the email that should follow, and books the meeting that&rsquo;s next.
+        One loop, four parts &mdash; and it runs whether or not anyone talks to it. Memo is a single agent with about thirty tools and one gate: it can read anything you&rsquo;ve connected, and it can only ever <em>propose</em> the write.
       </p>
 
-      <div class="steps">
+      <div class="steps steps-4">
         <article class="step">
-          <h3>Context arrives.</h3>
-          <p>From a Fireflies or Gong transcript, a calendar event with notes attached, or a DM you sent yourself in plain English. No copy-paste, no forms.</p>
+          <h3>Monitors.</h3>
+          <p>Webhooks from the CRM, your calendar and your inbox, plus a pass over your pipeline every half hour. It sees the deal stalling, the call nobody logged, the meeting that got declined.</p>
         </article>
         <article class="step">
-          <h3>Memo reasons.</h3>
-          <p>The agent searches the CRM, deduplicates contacts and companies, validates deal-stage fields, and surfaces the overdue task that&rsquo;s already on file.</p>
+          <h3>Thinks.</h3>
+          <p>Works out what context is missing, whether this is worth interrupting you for, and which surface to put it on. Every card it raises carries the reason it exists.</p>
         </article>
         <article class="step">
-          <h3>You review &amp; upload.</h3>
-          <p>The proposed updates, follow-up email, and next-step invite arrive in plain English. Tick what you want, untick what you don&rsquo;t. One tap to send.</p>
+          <h3>Does the work.</h3>
+          <p>Contacts, companies, deals, meeting logs, tasks, calendar invites, email drafts &mdash; deduplicated, stage fields validated, written across every connected system in one pass.</p>
+        </article>
+        <article class="step">
+          <h3>Learns.</h3>
+          <p>Every approve, edit, reject and dismissal is recorded with its reason and read back into the next draft. Or just tell it: &ldquo;in situations like this, do that.&rdquo;</p>
         </article>
       </div>
 
@@ -468,24 +443,60 @@
         <div>
           <h4>What Memo does today</h4>
           <ul class="caplist">
-            <li>Structured, sales-specific summaries <span class="desc">From notes or a meeting transcript &mdash; not a generic recap.</span></li>
-            <li>CRM contacts &middot; companies &middot; deals <span class="desc">Created or updated, with dedup and stage validation.</span></li>
-            <li>Tasks and follow-up reminders <span class="desc">Including the overdue ones already on the deal.</span></li>
-            <li>Email follow-up drafts <span class="desc">Pre-written, addressed, ready to send.</span></li>
-            <li>Calendar invites for next steps <span class="desc">Time-checked against your schedule, with the right attendees.</span></li>
-            <li>Talk to your CRM in plain English <span class="desc">DM Memo a question; it answers.</span></li>
+            <li>A proactive inbox, and a view of the day <span class="desc">What I noticed, then your call &mdash; one ranked list, most pressing first.</span></li>
+            <li>Notes into CRM records, typed or spoken <span class="desc">Hold a key anywhere in the app and talk. Contacts, companies, deals and meeting logs, deduplicated and stage-validated.</span></li>
+            <li>One question a day, when there&rsquo;s nothing to read <span class="desc">The fact a live deal is missing, asked after a call, answerable by voice from the card.</span></li>
+            <li>Follow-up drafts in your own voice <span class="desc">Greeting, sign-off, formality and language distilled from your sent mail.</span></li>
+            <li>Calendar invites for the next step <span class="desc">Time-checked against your week, with the right attendees on them.</span></li>
+            <li>Meeting prep, researched before you open it <span class="desc">Warmed ahead of time &mdash; and written from the open web where the CRM is thin.</span></li>
+            <li>Routines you write in a sentence <span class="desc">&ldquo;Every weekday morning, draft a check-in for each of my trial deals.&rdquo; No form, no builder &mdash; just ask.</span></li>
+            <li>Your CRM, in plain English <span class="desc">Ask it anything in the web app, in Slack, or out loud.</span></li>
+            <li>English and Finnish, throughout <span class="desc">Including your CRM&rsquo;s own brand name in place of the word &ldquo;CRM&rdquo;.</span></li>
           </ul>
         </div>
         <div>
-          <h4 class="coming-h4">In the next chapter</h4>
+          <h4 class="coming-h4">Being built now</h4>
           <ul class="caplist coming">
-            <li>Voice &mdash; Memo calls, you talk through your day <span class="desc">A short call between meetings; Memo handles the rest.</span></li>
-            <li>Manager dashboard <span class="desc">Pipeline hygiene, working agreements, team-level signals.</span></li>
-            <li>MEDDIC and BANT auto-fill <span class="desc">Qualification fields written from the conversation that just happened.</span></li>
-            <li>More CRMs &mdash; Salesforce <span class="desc">Same agent, more places.</span></li>
+            <li>Deal quality, not just hygiene <span class="desc">A nudge that says <em>21 days quiet and no economic buyer named</em>, instead of &ldquo;this deal is stalled&rdquo;. MEDDPICC scoring is designed, not shipped.</span></li>
+            <li>Learning that measurably moves the next draft <span class="desc">Edit and reject rates per capability, so a correction reliably improves the next proposal of the same kind.</span></li>
+            <li>Event triggers on every CRM, not just HubSpot <span class="desc">Stage moves, record edits and inbound signals as first-class triggers on Pipedrive, Attio and Dynamics too.</span></li>
+            <li>More done before you ask for it <span class="desc">Each capability earns its autonomy on measured trust, per customer. Nothing gets promoted on a flag flip.</span></li>
           </ul>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── Control ────────────────────────────────────────────── -->
+  <section class="bay" style="padding-top: 0;">
+    <div class="container">
+      <div class="smallcaps section-eyebrow">Control</div>
+      <h2 class="head">One gate. <em>Everything goes through it.</em></h2>
+      <p class="lede">
+        An assistant that writes to your CRM and drafts from your mailbox is only worth having if you can say exactly what it is allowed to do. Three of those answers are structural &mdash; properties of how Memo is built, not policies somebody has to remember to apply.
+      </p>
+
+      <div class="problem-grid">
+        <article class="pcard">
+          <span class="tag">i.</span>
+          <h3>Nothing changes or sends without you.</h3>
+          <p>There are no direct write tools in Memo &mdash; none. Every state change, from every surface, funnels through a single proposal step. Approval isn&rsquo;t a setting; it&rsquo;s the only path there is.</p>
+        </article>
+        <article class="pcard">
+          <span class="tag">ii.</span>
+          <h3>Undo on anything it created.</h3>
+          <p>Every row that added a record carries an Undo that removes exactly that record. Rows that changed an existing value or sent an invite carry none &mdash; we won&rsquo;t offer an Undo that quietly does nothing.</p>
+        </article>
+        <article class="pcard">
+          <span class="tag">iii.</span>
+          <h3>Your data can&rsquo;t reach another customer.</h3>
+          <p>Isolation is enforced at the database role, not in application code: every query runs inside a row-level-security context the app cannot bypass. What never reaches the model can&rsquo;t be talked out of it.</p>
+        </article>
+      </div>
+
+      <p class="lede" style="margin-top: 3rem;">
+        And what we deliberately don&rsquo;t build: we don&rsquo;t record your calls, we don&rsquo;t become your phone system, and we don&rsquo;t ask you to replace the CRM you already pay for. If audio is ever involved, it&rsquo;s audio someone else recorded and chose to share.
+      </p>
     </div>
   </section>
 
@@ -493,20 +504,23 @@
   <section class="bay" style="padding-top: 0;">
     <div class="container">
       <div class="smallcaps section-eyebrow">The proactive side</div>
-      <h2 class="head">Memo doesn&rsquo;t wait <em>to be asked.</em></h2>
+      <h2 class="head">Standing work you delegate once, <em>and stop thinking about.</em></h2>
       <p class="lede">
-        A morning brief in your sales channel before the day starts. The same context on a desk at <em>memo.app/today</em>. Stalled deals surfaced. Tasks pre-grouped by what&rsquo;s overdue.
+        Routines are how you hand Memo a job for good. You write one the way you&rsquo;d ask a colleague &mdash; <em>&ldquo;every weekday morning, draft a check-in for each of my trial deals&rdquo;</em>, <em>&ldquo;when a deal moves to Proposal, prep the pricing brief&rdquo;</em> &mdash; and it runs on a clock or on an event from then on. It still drafts, and you still approve. The work lands in your Workspace and on your day, whether or not you went looking.
       </p>
 
       <!-- Plate II — /today web view -->
       <figure class="plate">
         <div class="plate-frame">
-          <div class="webapp" role="img" aria-label="The Memo /today web view: today's meetings, the day's plan, and CRM tasks due.">
+          <div class="webapp" role="img" aria-label="Memo's Today view: the day in brief, a meeting that needs logging, and the CRM tasks due.">
             <aside class="web-side">
               <div class="web-org">Memo<span class="org-sub">Memo Technologies</span></div>
               <nav class="web-nav">
                 <a class="active">Today</a>
+                <a>Chat</a>
                 <a>Workspace</a>
+                <a>Routines</a>
+                <a>Settings</a>
               </nav>
             </aside>
             <main class="web-main">
@@ -522,14 +536,14 @@
                 <div class="web-card web-card-meeting">
                   <h4>Sales review #2: Mira &lt;&gt; Eveline <span class="time">11:30</span> <span class="needs">needs logging</span></h4>
                   <div class="who">with eveline@aldwick.com (declined)</div>
-                  <p>Eveline declined the 11:30 meeting &mdash; confirm if still on, or close out.</p>
+                  <p>Eveline declined the 11:30 &mdash; confirm it&rsquo;s still on, or close it out. I&rsquo;ve drafted both.</p>
                   <span class="mock-link" aria-hidden="true">Open in Calendar &rarr;</span>
                 </div>
                 <div class="web-card full">
                   <h4>2 CRM tasks due</h4>
                   <div class="web-tasks">
-                    <div class="web-task"><span class="box"></span><span class="label">Follow up with Marcus Reilly, Latimer Marine <span class="who">&middot; Marcus Reilly (Latimer)</span></span><span class="who">today</span></div>
-                    <div class="web-task"><span class="box"></span><span class="label">Follow up with Jonas Skarsgård, Carillon <span class="who">&middot; Jonas Skarsgård (Carillon)</span></span><span class="who">today</span></div>
+                    <div class="web-task"><span class="box"></span><span class="label">Follow up with Marcus Reilly, Latimer Marine <span class="who">&middot; from your &ldquo;Chase trials&rdquo; routine</span></span><span class="who">today</span></div>
+                    <div class="web-task"><span class="box"></span><span class="label">Follow up with Jonas Skarsg&aring;rd, Carillon <span class="who">&middot; Jonas Skarsg&aring;rd (Carillon)</span></span><span class="who">today</span></div>
                   </div>
                   <span class="web-tasks-cta">Mark complete</span>
                 </div>
@@ -539,9 +553,13 @@
         </div>
         <figcaption class="plate-caption">
           <span class="figure">Plate&nbsp;II</span>
-          <span class="text">The same items, on a desk &mdash; <em>memo.app/today</em>.</span>
+          <span class="text">Today &mdash; the day ahead, what still needs logging, and what a routine turned up overnight.</span>
         </figcaption>
       </figure>
+
+      <p class="lede" style="margin-top: 4rem;">
+        The web app is where the work is guaranteed to land. Slack is a delivery channel on top of it &mdash; a morning digest, a heads-up DM, a proposal you can approve without leaving the thread. Turn it on if that&rsquo;s where your team already lives, and leave it off if it isn&rsquo;t.
+      </p>
 
       <!-- Plate III — Slack window with #sales channel + morning digest -->
       <figure class="plate" style="margin-top: 5rem;">
@@ -610,7 +628,7 @@
                       </div>
                       <div class="item">
                         <span class="who">Lunch: Pavel &lt;&gt; Mira</span> &mdash; 09:00 with pavel@halden.com<br>
-                        <span class="desc">Log after.</span>
+                        <span class="desc">You told me lunches with Pavel never need logging.</span>
                       </div>
                       <div class="item">
                         <span class="who">Weekly pipeline review</span> &mdash; 07:00 with petrus@sentmemo.com<br>
@@ -627,7 +645,7 @@
 
                     <div class="sw-proposal-actions">
                       <span class="sw-actbtn primary">Mark selected complete</span>
-                      <span style="font-size: 0.78rem; color: #8b8d8f; margin-left: 0.4rem;">Open <em>/today</em> on the web for full detail.</span>
+                      <span style="font-size: 0.78rem; color: #8b8d8f; margin-left: 0.4rem;">Open <em>Today</em> in the app for the full picture.</span>
                     </div>
                   </div>
                 </div>
@@ -644,7 +662,7 @@
         </div>
         <figcaption class="plate-caption">
           <span class="figure">Plate&nbsp;III</span>
-          <span class="text">The morning digest &mdash; the same context, posted where the team already chats.</span>
+          <span class="text">The morning digest, pushed to Slack &mdash; the same items, in the same Workspace, posted where the team already chats.</span>
         </figcaption>
       </figure>
     </div>
@@ -656,32 +674,30 @@
       <div class="smallcaps section-eyebrow">Integrations</div>
       <h2 class="head">Works with the tools <em>your team already uses.</em></h2>
       <p class="lede">
-        Memo is channel-agnostic. The CRM you already pay for, the note-taker you already run, the chat your team already lives in &mdash; Memo plugs into the work, not around it.
+        Four CRMs, all four offered to every customer with no upsell in the way. Google Calendar, Gmail and Tasks. Four note-takers, if you happen to run one. A Chrome extension for LinkedIn threads. And voice, in and out. Memo plugs into the work, not around it.
       </p>
 
       <div class="integrations-block">
         <div>
           <h4>Available now</h4>
-          <div class="iconrow">
-            <div class="iconcell"><img src="logos/attio.svg" alt="Attio"><span class="name">Attio</span></div>
-            <div class="iconcell"><img src="logos/dynamics.svg" alt="Microsoft Dynamics 365"><span class="name">Dynamics&nbsp;365</span></div>
-            <div class="iconcell"><img src="logos/fireflies.svg" alt="Fireflies"><span class="name">Fireflies</span></div>
-            <div class="iconcell"><img src="logos/gong.svg" alt="Gong" class="wide"><span class="name">Gong</span></div>
-            <div class="iconcell"><img src="logos/googlecalendar.svg" alt="Google Calendar"><span class="name">Google&nbsp;Cal.</span></div>
-            <div class="iconcell"><img src="logos/granola.svg" alt="Granola"><span class="name">Granola</span></div>
+          <div class="iconrow iconrow--now">
             <div class="iconcell"><img src="logos/hubspot.svg" alt="HubSpot"><span class="name">HubSpot</span></div>
             <div class="iconcell"><img src="logos/pipedrive.svg" alt="Pipedrive" class="wide"><span class="name">Pipedrive</span></div>
+            <div class="iconcell"><img src="logos/attio.svg" alt="Attio"><span class="name">Attio</span></div>
+            <div class="iconcell"><img src="logos/dynamics.svg" alt="Microsoft Dynamics 365"><span class="name">Dynamics&nbsp;365</span></div>
+            <div class="iconcell"><img src="logos/googlecalendar.svg" alt="Google Calendar"><span class="name">Google&nbsp;Cal.</span></div>
+            <div class="iconcell"><img src="logos/gmail.svg" alt="Gmail"><span class="name">Gmail</span></div>
             <div class="iconcell"><img src="logos/slack.svg" alt="Slack"><span class="name">Slack</span></div>
+            <div class="iconcell"><img src="logos/fireflies.svg" alt="Fireflies"><span class="name">Fireflies</span></div>
+            <div class="iconcell"><img src="logos/gong.svg" alt="Gong" class="wide"><span class="name">Gong</span></div>
+            <div class="iconcell"><img src="logos/granola.svg" alt="Granola"><span class="name">Granola</span></div>
           </div>
         </div>
         <div>
           <h4 class="coming-h4">Coming soon</h4>
-          <div class="iconrow">
-            <div class="iconcell coming"><span class="name">Leexi</span></div>
-            <div class="iconcell coming"><span class="name">Fathom</span></div>
-            <div class="iconcell coming"><span class="name">Notion AI</span></div>
+          <div class="iconrow iconrow--soon">
             <div class="iconcell coming"><span class="name">Salesforce</span></div>
-            <div class="iconcell coming"><span class="name">Teams</span></div>
+            <div class="iconcell coming"><span class="name">Microsoft Teams</span></div>
             <div class="iconcell coming"><span class="name">Outlook</span></div>
           </div>
         </div>

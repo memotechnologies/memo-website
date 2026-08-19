@@ -18,6 +18,9 @@
     --sans:  'Inter', -apple-system, Helvetica, Arial, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* Paper behind the card too, so a capture that overshoots the 630px by a
+     pixel or two bleeds bone rather than a white strip. */
+  html { background: var(--paper); }
   body { width: 1200px; height: 630px; overflow: hidden; }
 
   .card {
@@ -61,8 +64,7 @@
     letter-spacing: -0.018em;
     color: var(--ink);
     font-weight: 600;
-    /* Caps the measure so the italic breaks after "touchpoints" instead of
-       orphaning "into" at the end of the line and "action." on its own. */
+    /* Caps the measure so each of the two clauses keeps its own line. */
     max-width: 880px;
   }
   .hed em {
@@ -102,10 +104,10 @@
     <div class="stack">
       <h1 class="hed">
         Your AI sales worker.
-        <em>Turns your customer touchpoints into action.</em>
+        <em>It doesn&rsquo;t wait to be asked.</em>
       </h1>
       <p class="deck">
-        Clean CRM updates, drafted follow-ups, and the next steps that follow.
+        It notices what a deal needs, then drafts the CRM update, the reply and the next meeting &mdash; for one tap.
       </p>
     </div>
 
