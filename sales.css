@@ -1,16 +1,25 @@
     :root {
       /* ── Memo's "Close" palette ─────────────────────────────────
          These are the app's own design tokens (app/globals.css),
-         not a marketing approximation of them: deep racing green on
-         bone. Green is the one hue a sales tool has earned — it means
-         *closed* — and at this depth it reads Nordic rather than
-         fintech mint. Keep the two files in step; where they differ,
-         the app is right. */
+         not a marketing approximation of them: deep racing green on a
+         cool mineral off-white. Green is the one hue a sales tool has
+         earned — it means *closed* — and at this depth it reads Nordic
+         rather than fintech mint. The neutral it sits on is the site's
+         one departure from the app: the app's canvas is bone, and bone
+         under a serif display is the house style of half the AI web, so
+         the marketing page rotates the same lightness onto the green
+         axis. Everything else here should stay in step with the app;
+         where they differ elsewhere, the app is right. */
 
-      /* Paper — the neutral ramp, retinted bone → green-black. */
-      --paper:        #f6f6f2;  /* canvas        · neutral-50  */
+      /* Paper — the neutral ramp, a cool mineral off-white on the way to
+         green-black. The canvas used to be bone (#f6f6f2), a warm ivory
+         that put the page in the same room as every other serif-on-cream
+         AI site. Same lightness, hue rotated off yellow onto the green
+         axis: it now reads as weathered stone rather than paper stock,
+         and it agrees with the racing green instead of fighting it. */
+      --paper:        #eef1ef;  /* canvas        · neutral-50  */
       --surface:      #ffffff;  /* cards, panels · surface     */
-      --paper-card:   #eef0ea;  /* subtle rows   · neutral-100 */
+      --paper-card:   #e7ebe8;  /* subtle rows   · neutral-100 */
       --paper-warm:   #dfeae4;  /* brand tint    · brand       */
       --paper-deep:   #c3d6cc;  /* tint border   · brand-strong*/
 
@@ -19,15 +28,15 @@
       --ink-soft:     #4f5a54;  /* secondary      · neutral-600 */
       --ink-mute:     #5c6861;  /* tertiary       · ink-subtle  */
       --ink-faint:    #97a29a;  /* captions       · neutral-400 */
-      --rule:         #c8cfc7;  /* strong border  · neutral-300 */
-      --rule-soft:    #e0e4dd;  /* default border · neutral-200 */
+      --rule:         #c5cec9;  /* strong border  · neutral-300 */
+      --rule-soft:    #dde3df;  /* default border · neutral-200 */
 
-      /* Racing green. `--primary` is the action surface and carries
-         bone, not white; `--accent` is emphasis — links and focus —
-         lifted off it so a link is not a button. */
+      /* Racing green. `--primary` is the action surface and carries the
+         canvas colour, not white; `--accent` is emphasis — links and
+         focus — lifted off it so a link is not a button. */
       --primary:      #0e3b2e;
       --primary-hover:#0a2d23;
-      --on-primary:   #f6f6f2;
+      --on-primary:   #eef1ef;
       --accent:       #0f5a41;
       --accent-deep:  #0a2d23;
       --accent-glow:  rgba(15, 90, 65, 0.16);
@@ -48,6 +57,27 @@
       --warning-lit:  #e2a45c;
       --danger-lit:   #f28b7d;
 
+      /* Two families, and the split between them is by *role*, not by
+         size or by whim. The page had drifted: sentences of running prose
+         set in Inter sitting directly under serif headings, an italic
+         serif name in a row of sans caps, and a Slack mock asking for a
+         Lato it never loaded, so it rendered in a third, system face.
+         The rule, from here on:
+
+           --serif  everything editorial. Headings, ledes, body copy,
+                    card copy, list descriptions, statistics, citations,
+                    plate captions. If it is a sentence, it is serif.
+           --sans   everything that labels or operates. Eyebrows and
+                    smallcaps, buttons, tags, nav, footer, and the chrome
+                    inside the product mocks — which are pictures of
+                    software, and software is set in a UI face.
+
+         One exception, and it is the app's rather than the page's: page
+         titles inside the mocks (`.web-page-head h3`, `.ap-card h5`) stay
+         serif, because Memo's own interface sets them that way and a
+         screenshot should show the product, not the stylesheet.
+
+         Nothing else gets a font-family. */
       --serif: 'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
       --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 
@@ -105,9 +135,7 @@
     }
     .smallcaps--accent { color: var(--accent); }
     .caption {
-      font-family: var(--sans);
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
+      font-size: 0.9rem;
       color: var(--ink-mute);
       font-weight: 400;
     }
@@ -474,12 +502,16 @@
       overflow: hidden;
       display: grid;
       grid-template-columns: 14rem 1fr;
-      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      /* Slack's own face is Lato, but the page never loaded it, so this
+         fell through to the system UI font — a third family on a
+         two-family page. Inter is the closer read of Slack's chrome than
+         SF or Segoe is, and it costs no extra request. */
+      font-family: var(--sans);
       color: #d1d2d3;
       box-shadow:
         0 1px 0 rgba(0,0,0,0.04),
-        0 30px 60px -28px rgba(20, 10, 4, 0.45),
-        0 18px 30px -16px rgba(20, 10, 4, 0.35);
+        0 30px 60px -28px rgb(19 28 24 / 0.45),
+        0 18px 30px -16px rgb(19 28 24 / 0.35);
       border: 1px solid rgba(0,0,0,0.08);
     }
     @media (max-width: 56rem) {
@@ -832,8 +864,7 @@
     }
     .citations {
       margin-top: 1.5rem;
-      font-family: var(--sans);
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       line-height: 1.7;
       color: var(--ink-mute);
       letter-spacing: 0.005em;
@@ -916,11 +947,10 @@
       gap: 0.2rem;
     }
     .caplist li .desc {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--ink-mute);
-      font-family: var(--sans);
       font-weight: 400;
-      letter-spacing: 0.005em;
+      line-height: 1.5;
     }
     .caplist.coming li { color: var(--ink-soft); }
     .caplist h4, .capability-row h4 {
@@ -1344,7 +1374,10 @@
       text-transform: uppercase;
       color: var(--ink-mute);
     }
-    .iconcell.coming .name { color: var(--ink-soft); font-style: italic; text-transform: none; letter-spacing: 0.01em; font-size: 0.84rem; font-family: var(--serif); font-weight: 400; }
+    /* Same treatment as every other connector name — the "Coming soon"
+       heading above the grid already does the distinguishing, so this had
+       no reason to break into italic serif mid-row. */
+    .iconcell.coming .name { color: var(--ink-faint); }
 
     /* ── Footer ───────────────────────────────────────────────── */
     .colophon {

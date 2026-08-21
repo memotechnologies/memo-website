@@ -1,6 +1,10 @@
-/* Long-form legal documents. Inherits the palette and fonts from sales.css;
-   everything here is the reading measure and the document furniture that a
-   landing page has no use for. */
+/* Long-form legal documents. Inherits the palette and fonts from sales.css,
+   including its rule for which family goes where: serif for anything that is
+   read as a sentence, sans only for labels and operators. A document whose
+   heading ladder changed family at h3, and whose metadata, contact block and
+   table copy were all set in the label face, was breaking that rule four
+   times over. Everything here is now the reading measure and the document
+   furniture that a landing page has no use for. */
 
 .legal-shell {
   max-width: 46rem;
@@ -28,8 +32,7 @@
 }
 
 .legal-meta {
-  font-family: var(--sans);
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--ink-mute);
   padding-bottom: 1.6rem;
   border-bottom: 1px solid var(--rule);
@@ -56,11 +59,12 @@
 
 .legal-shell h2:first-of-type { border-top: 0; padding-top: 0; }
 
+/* h3 keeps the ladder in one family and separates itself by size and
+   weight instead — the same trick h2 uses against h1. */
 .legal-shell h3 {
-  font-family: var(--sans);
-  font-size: 0.94rem;
+  font-family: var(--serif);
+  font-size: 1.08rem;
   font-weight: 600;
-  letter-spacing: 0.005em;
   margin: 1.7rem 0 0.55rem;
 }
 
@@ -74,7 +78,7 @@
 .legal-shell strong { font-weight: 600; }
 
 /* A tint, not a bright green: `--accent-soft` was #4ea886, which the app
-   dropped, and a mint underline on bone reads as a highlighter. */
+   dropped, and a mint underline on this canvas reads as a highlighter. */
 .legal-shell a { border-bottom: 1px solid var(--paper-deep); }
 .legal-shell a:hover { border-bottom-color: var(--accent); }
 
@@ -101,13 +105,13 @@
   width: 100%;
   min-width: 34rem;
   border-collapse: collapse;
-  font-family: var(--sans);
-  font-size: 0.855rem;
+  font-size: 0.94rem;
   line-height: 1.5;
 }
 
 .legal-shell th {
   text-align: left;
+  font-family: var(--sans);
   font-weight: 600;
   font-size: 0.72rem;
   letter-spacing: 0.09em;
@@ -131,8 +135,7 @@
   margin-top: 3.2rem;
   padding-top: 1.6rem;
   border-top: 1px solid var(--rule);
-  font-family: var(--sans);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   color: var(--ink-soft);
 }
 
